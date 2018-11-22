@@ -1,48 +1,42 @@
+<Button>:
+	font_size: 18 
+	height: 40
+	width: 300 
+	halign: 'left'
+	valign: 'center'
+	text_size: self.size
+	size_hint: (None, None) 
+	padding: (6, 6)
+
 <MyWindow>:
 	orientation: 'tb-lr'
 	Label:
 		id: app_name
-		size_hint: (1, 0.1)
+		size_hint: (1, 0.08)
+		font_size: 20
 		text: 'TuneDune'
 	Button:
 		id: user_button
-		size_hint: (None, None) 
-		height: 40
-		width: 300 
 		text: 'Username'
-	Button:
+	TextInput:
 		id: search_button 
 		size_hint: (None, None)
+		font_size: 18 
 		height: 40 
 		width: 300 
-		text: 'Search'
+		text: 'Search...'
 	Button:
 		id: shop_button
-		size_hint: (None, None)
-		height: 40 
-		width: 300 
 		text: 'Shop'
 	Button:
 		id: music_button
-		size_hint: (None, None)
-		height: 40 
-		width: 300 
 		text: 'My Music'
 	Button:
 		id: album_button
-		size_hint: (None, None)
-		height: 40 
-		width: 300 
 		text: 'Albums'
 	Button:
 		id: contact_button
-		size_hint: (None, None)
-		height: 40 
-		width: 300 
 		text: 'Contact'
 	Button:
 		id: settings_button
-		size_hint: (None, None)
-		height: 40 
-		width: 300 
 		text: 'Settings'
