@@ -5,9 +5,9 @@ from kivy.app import App
 from kivy.uix.label import Label
 from kivy.uix.button import Button
 from kivy.uix.stacklayout import StackLayout
-from kivy.uix.anchorlayout import AnchorLayout
+from kivy.uix.gridlayout import GridLayout
 
-class MainLayout(AnchorLayout):
+class MainLayout(GridLayout):
     pass
 
 class TuneDuneApp(App):
