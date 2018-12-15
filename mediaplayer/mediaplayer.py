@@ -9,7 +9,7 @@ from kivy.graphics import *
 from kivy.app import App
 from kivy.uix.image import AsyncImage
 from kivy.uix.behaviors import ButtonBehavior
-from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.slider import Slider
 from kivy.clock import Clock
 import kivy.resources as resources
@@ -51,7 +51,7 @@ class Media_Slider(My_Sliders):
         self.method_get_time = method_get_time
 
     def start_clock(self):
-        Clock.schedule_interval(self.change_slider_state, 1)
+        Clock.schedule_interval(self.change_slider_state, 0.1)
 
     #def update_media():
      #   self.track_is_playing = track_is_playing
@@ -73,6 +73,7 @@ class Media_Slider(My_Sliders):
         if self.track_length() != -1:
             if self.track_is_playing() and self.method_get_time() < self.track_length():
                 self.value = self.method_get_time() / self.track_length() * 100
+        #print(self.method_get_time())
 
 class My_Button(ButtonBehavior, Image):
     def __init__(self, path1, function1 = None, path2 = None, function2 = None, toogle = False, player = None, **kwargs):
@@ -151,27 +152,46 @@ class Player:
         pb.function = pb.function2
         
         
-class Player_Window(BoxLayout):
+class Player_Window(FloatLayout):
     def __init__(self, path, cover_path, **kwargs):
-        super(Player_Window, self).__init__(orientation = 'horizontal')
+        super(Player_Window, self).__init__()
         self._disabled_count = 0
         self.player_w = Player(path)                                 #create instance of Player
         self.player_w.play_track()
         self.player_w.player.audio_set_volume(25)
+        self.cover = Display_area(cover_path)
         self.button_play = My_Button('playbutton.png', self.player_w.player.play, 'stopbutton.png', self.player_w.player.pause, toogle = True, player = self.player_w) 
         self.forward = My_Button('forwardbutton.png', self.player_w.forward_5_sec)
         self.backwards = My_Button('backwardsbutton.png', self.player_w.backwards_5_sec)
         self.volume_slider = Volume_Slider(self.player_w.player.audio_set_volume)
         self.button_repeat = My_Button('repeatbutton.png', lambda: self.player_w.repeat(self.button_play))
         self.media_slider = Media_Slider(self.player_w.player.set_position, self.player_w.player.is_playing, self.player_w.player.get_time,self.player_w.player.get_length)
-        self.cover = Display_area(cover_path)
+        self.volume_icon = My_Button('volume.png')
+        self.cover.pos_hint = {'center_x': 0.5, 'center_y': 0.5}
+        self.button_repeat.pos_hint = {'center_x': 0.1, 'center_y': 0.1}
+        self.backwards.pos_hint = {'center_x': 0.2, 'center_y': 0.1}
+        self.button_play.pos_hint = {'center_x': 0.3, 'center_y': 0.1}
+        self.forward.pos_hint = {'center_x': 0.4, 'center_y': 0.1}
+        self.volume_icon.pos_hint = {'center_x': 0.55, 'center_y': 0.1}
+        self.volume_slider.pos_hint = {'center_x': 0.7, 'center_y': 0.1}
+        self.volume_slider.size_hint = (0.2, 0.05)
+        self.media_slider.size_hint = (1, 0.05)
+        self.button_play.size_hint = (0.1, 0.1)
+        self.volume_icon.size_hint = (0.1, 0.1)
+        self.backwards.size_hint = (0.1, 0.1)
+        self.forward.size_hint = (0.1, 0.1)
+        self.button_repeat.size_hint = (0.1, 0.1)
+        self.media_slider.pos_hint = {'center_x': 0.5, 'center_y': 0.2}
+        self.media_slider.sensitivity = 'handle'
+        self.volume_slider.sensitivity = 'handle'
+        self.add_widget(self.cover)
+        self.add_widget(self.media_slider)
+        self.add_widget(self.volume_slider)
         self.add_widget(self.button_repeat)
         self.add_widget(self.backwards)
         self.add_widget(self.button_play)
         self.add_widget(self.forward)
-        self.add_widget(self.volume_slider)
-        self.add_widget(self.media_slider)
-        self.add_widget(self.cover)
+        self.add_widget(self.volume_icon)
         self.media_slider.start_clock()
         
 class Player_App(App):
