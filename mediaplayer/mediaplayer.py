@@ -67,8 +67,8 @@ class Player_App(App):
     def build(self):
         #self._player_window = Player_Window(self._path, self._cover_path)
         self._player_window = Player_App.get_player(self._path, self._cover_path)
+        print(self._player_window)
         #change_slider_state(self._player_window.media_slider.change_state, self._player_window.player_w.player.get_position)
-        Player_App('test.mp3', '').run()
         return self._player_window
     
     def on_stop(self):
@@ -81,6 +81,7 @@ class Player_App(App):
             if Player_App.player_pool == []:
                 raise OP_Exception('You already have maximum windows with player open')
             else:
+                Player_App.player_pool[0].reset_player(path, cover)
                 return Player_App.player_pool.pop(0)
         except OP_Exception as e:
             print(e.args)
