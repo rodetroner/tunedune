@@ -9,15 +9,16 @@
 	padding: (6, 6)
 
 <MainLayout>:
-    cols: 2
+    anchor_x: 'left'
+    anchor_y: 'top'
     StackLayout:
         orientation: 'tb-lr'
         Label:
             id: app_name
-            size_hint: (None, None)
+            size_hint: (1, None)
             font_size: 20
             height: 40
-            width: 300
+         #   width: 300
             text: 'TuneDune'
         Button:
             id: user_button
@@ -44,3 +45,35 @@
         Button:
             id: settings_button
             text: 'Settings'
+    AnchorLayout:
+        anchor_x: 'right'
+        anchor_y: 'top'
+        StackLayout:
+            orientation: 'tb-rl'
+            Button:
+                id: t_button
+                text: 'track'
+                width: root.width - 300
+                pos_hint: None, None
+                pos: [0, 60]
+                height: 40
+            Button:
+                id: t_button
+                text: 'track'
+                width: root.width - 300
+                height: 40
+            Button:
+                id: t_button
+                text: 'track'
+                width: root.width - 300
+                height: 40
+            Button:
+                id: t_button
+                text: 'track'
+                width: root.width - 300
+                height: 40
+            Button:
+                id: t_button
+                text: 'track'
+                width: root.width - 300
+                height: 40
