@@ -1,4 +1,5 @@
 import data_base
+import datetime
 
 class Users_data():
     def __init__(self):
@@ -17,6 +18,32 @@ class Users_data():
                 self.cursor.execute("select login, email, balance from users where login = %s", (username))
         return self.cursor.fetchall()
 
+    def get_password(self, login):
+        self.cursor.execute("select password from users where login = %s", (login))
+        return self.cursor.fetchall()
+
+    def get_banlist(self, login):
+        self.cursor.execute("select id_ban from bans_to_users where id_user = (select id from users where login = %s)", (login))
+        return self.cursor.fetchall()
+
+    def get_bans(self):
+        self.cursor.execute("select id_ban, ban_name from bans")
+        return self.cursor.fetchall()
+
+    def start_user_session(self, login):
+        self.connection.begin()
+        self.cursor.execute("INSERT INTO sessions (id_user, start) VALUES ((select id_user from users where login = %s), %s)", (login, datetime.datetime.now()))
+        self.connection.commit()
+        self.cursor.execute("select LAST_INSERT_ID()")
+        return  self.cursor.fetchall()
+
+    def end_user_session(self, session):
+        self.connection.begin()
+        self.cursor.execute("UPDATE users SET end = %s WHERE id_session = %s;", (datetime.datetime.now(), session))
+        self.connection.commit()
+
+    def start_user_session(self, login):
+        
     def add_user(self, username = '', email = '', password = ''):
         if username == '' or email == '' or email == '':
             return 0
