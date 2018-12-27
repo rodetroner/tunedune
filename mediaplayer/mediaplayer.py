@@ -90,4 +90,4 @@ class Player_App(App):
         Player_App.player_pool.append(p)
 
 
-Player_App('test.mp3', '').run()           #uncomment to test
+#Player_App('test.mp3', '').run()           #uncomment to test
