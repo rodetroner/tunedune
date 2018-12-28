@@ -8,12 +8,36 @@ class Albums_data():
         self.connection = self.db.get_connection()
         self.cursor = self.db.db_cursor
 
-    def get_albums(self, name = '', owner = None):
-        if owner == None:
-           self.cursor.execute("select id_album, album_name, owner from albums where album_name like %s", ('%' + name + '%'))
-        else: 
+    def get_albums(self, name = '', owner = None, authors = list(), tags = list(), id_album = ''):
+        if owner != None:
             self.cursor.execute("select id_album, album_name, owner from albums where album_name like %s and owner = %s", ('%' + name + '%', owner))
-        return self.cursor.fetchall()
+            return self.cursor.fetchall()
+        if id_album != '':
+            self.cursor.execute("select id_album, album_name, owner from albums from albums where id_album = %s", (id_album)) 
+            return self.cursor.fetchall()
+        temp = list()
+        rvalue = list()
+        name = '%' + name + '%'
+        if authors !=  []:
+            self.cursor.execute("select id_album, album_name, owner from albums where album_name like %s", ('%' + name + '%'))
+            t = self.cursor.fetchall()
+            for o in t:
+                for i in authors:
+                    if not self.cursor.execute("select id_album from authors_to_albums join authors on authors.id_author = authors_to_albums.id_author where id_album = %s and author.author_name like %s", (o[0], '%' + i + '%')):
+                        break
+                else:
+                    temp.append(o)
+        else:
+            self.cursor.execute("select id_album, album_name, owner from albums where album_name like %s", ('%' + name + '%'))
+            temp = self.cursor.fetchall()
+        if tags != []:
+            for i in temp:
+                for j in tags:
+                    if self.cursor.execute("select id_album, album_name, owner from tags join tags_to_albums on tags.id_tag = tags_to_albums.id_tag where id_album = %s and tag_name = %s", (i[0], j)):
+                        break
+                else: rvalue.append(i)
+        else: rvalue = temp
+        return set(rvalue)
     
     def add_album(self, album_name, owner = None, tracks_for_album = list()):
         self.connection.begin()
@@ -53,7 +77,6 @@ class Albums_data():
         else:
             self.connection.begin()
             for i in track_id_list:
-                print(1)
                 self.cursor.execute("DELETE FROM tracks_to_albums WHERE id_album = %s and id_track = %s", (id_album[0], i))
             self.connection.commit()
 
@@ -72,6 +95,20 @@ class Albums_data():
         for i in a:
             tmp.append(tracks_data.Tracks_data().get_tracks(id_track = i[0]))
         return tmp
+
+    def get_authors(self, id_album = None):
+        if id_album:
+            self.cursor.execute("select author_name, id_author, id_user from author where id_author in (select id_author from authors_to_albums where id_album = %s)", (id_album))
+        else:
+            self.cursor.execute("select author_name, id_author, id_user from author")
+        return self.cursor.fetchall()
+
+    def get_tags(self, id_album = None):
+        if id_album:
+            self.cursor.execute("select tag_name, id_tag from tags where id_tag in (select id_tag from tags_to_albums where id_album = %s)", (id_album))
+        else:
+            self.cursor.execute("select tag_name, id_tag from tags")
+        return self.cursor.fetchall()
 
 '''#uncoment to test (id may not be right for test)
 a = Albums_data()

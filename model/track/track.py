@@ -2,7 +2,6 @@ import sys
 sys.path.append('../data_base')
 sys.path.append('../../mediaplayer')
 #from mediaplayer import Player_Window
-from argon2 import PasswordHasher
 from tracks_data import Tracks_data
 from abc import ABCMeta, abstractmethod
 
@@ -93,18 +92,38 @@ class Track:
 
     def get_tags(self):
         return self._tags
-    
+
+    def buy(self, user, time):
+        a = Tracks_data()
+        if a.check_track_for_buy(self._id_track, user.login):
+                total_price += i.get_track_price()
+        if user.alter_user(balance = total_price):
+            a.buy_track(j.get_track_id(), user.login, time)
+            return 1
+        else:
+            return 0
+        
     #def play_track(self):
     #    mediaplayer.Player_Window(self._path, self._cover_path)
     #do that in mediaplayer with observer or smthing
 
-    #def add_to_album(self):
+    def add_to_album(self, album):
+        album.add_track(self)
 
 def search_track(name = '', authors = list(), tags = list()):
     a = Tracks_data().get_tracks(track_name = name, authors = authors, tags = tags)
     for i in a:
         curr_searched_track_list.append(Track_Builder_Director.cosntruct(i))
 
+def fetch_album_tracks(album_tracks = list()):
+    tmp = list()
+    rvalue = list()
+    for i in album_tracks:
+        tmp.append(Tracks_data().get_tracks(id_track = i[0][0]))
+    for i in tmp:
+        rvalue.append(Track_Builder_Director.cosntruct(i[0]))
+    return rvalue
+    
 #uncomment to test   
 #search_track()
-#print(curr_searched_track_list[0].get_track_id())
+#print(curr_searched_track_list[0].get_track_name())

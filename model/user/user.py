@@ -10,6 +10,12 @@ class User:
         self.email = a[0][1]
         self.balance = a[0][2]
         self.banlist = Users_data().get_banlist(self.login)
+
+    def alter_user(self, login = '', email = '', passwordd = '', balance = 0):
+        if balance > self.balance:
+            return 0
+        Users_data().alter_user(self.login, login = login, email = emai, passwordd = passwordd, balance = balance)
+        return 1
         
     @classmethod
     def login(cls, login, password):
