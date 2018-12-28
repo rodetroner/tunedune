@@ -1,9 +1,11 @@
 import sys
 sys.path.append('../data_base')
+sys.path.append('../user')
 sys.path.append('../../mediaplayer')
 #from mediaplayer import Player_Window
 from tracks_data import Tracks_data
 from abc import ABCMeta, abstractmethod
+from user import User
 
 curr_searched_track_list = list()
 
@@ -97,7 +99,7 @@ class Track:
         a = Tracks_data()
         if a.check_track_for_buy(self._id_track, user.login):
                 total_price += i.get_track_price()
-        if user.alter_user(balance = total_price):
+        if user.alter_user(balance = -1 * total_price):
             a.buy_track(j.get_track_id(), user.login, time)
             return 1
         else:

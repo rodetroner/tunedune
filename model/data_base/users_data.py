@@ -40,9 +40,7 @@ class Users_data():
     def end_user_session(self, session):
         self.connection.begin()
         self.cursor.execute("UPDATE users SET end = %s WHERE id_session = %s;", (datetime.datetime.now(), session))
-        self.connection.commit()
-
-    def start_user_session(self, login):
+        self.connection.commit()    
         
     def add_user(self, username = '', email = '', password = ''):
         if username == '' or email == '' or email == '':

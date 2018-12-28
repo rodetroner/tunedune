@@ -4,7 +4,7 @@ from argon2 import PasswordHasher
 from users_data import Users_data as user
 
 class User:
-    def __init__(self):
+    def __init__(self, login):
         a = Users_data().get_users(username = login)
         self.login = a[0][0]
         self.email = a[0][1]
@@ -14,7 +14,7 @@ class User:
     def alter_user(self, login = '', email = '', passwordd = '', balance = 0):
         if balance > self.balance:
             return 0
-        Users_data().alter_user(self.login, login = login, email = emai, passwordd = passwordd, balance = balance)
+        Users_data().alter_user(self.login, login = login, email = emai, passwordd = passwordd, balance_change = balance)
         return 1
         
     @classmethod
@@ -33,9 +33,9 @@ class User:
         if a:
             return 0
         else:
-            if password != ''
+            if password != '':
                 password = PasswordHasher().hash(password)
-                tmp.add_user(login email, password)
+                tmp.add_user(login, email, password)
                 return 1
             else:
                 return 0

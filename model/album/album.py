@@ -1,8 +1,10 @@
 import sys
 sys.path.append('../data_base')
+sys.path.append('../user')
 sys.path.append('../track')
 from albums_data import Albums_data
 from track import *
+from user import User
 
 curr_searched_album_list = list()
 
@@ -71,7 +73,7 @@ class Album:
         for i in self._tracks:
             if a.check_track_for_buy(i.get_track_id, user.login):
                 total_price += i.get_track_price()
-        if user.alter_user(balance = total_price):
+        if user.alter_user(balance = -1 * total_price):
             for j in self._tracks:
                 a.buy_track(j.get_track_id(), user.login, time)
             return 1

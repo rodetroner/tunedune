@@ -8,7 +8,7 @@ class Ads_data():
         self.cursor = self.db.db_cursor
 
     def get_ads(self, ads_type = '', ad_provider = ''):
-        self.cursor.execute("select ad_name, ad_path, ad_reward from ads where ads_type like %s and ad_provider like %s", ('%' + ads_type + '%', '%' + ad_provider + '%'))
+        self.cursor.execute("select ad_name, ad_path, ad_reward, ad_provider, ads_type from ads where ads_type like %s and ad_provider like %s", ('%' + ads_type + '%', '%' + ad_provider + '%'))
         return self.cursor.fetchall()
     
     def add_ad(self, ad_name, ad_provider, ad_path, ad_reward, ads_type):
