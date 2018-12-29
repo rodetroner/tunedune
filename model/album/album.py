@@ -69,11 +69,12 @@ class Album:
             return self._track[self.curr_track]
             
     def buy(self, user, time):
+        total_price = 0
         a = Tracks_data()
         for i in self._tracks:
             if a.check_track_for_buy(i.get_track_id, user.login):
                 total_price += i.get_track_price()
-        if user.alter_user(balance = -1 * total_price):
+        if Payment.update_balance(user, total_price):
             for j in self._tracks:
                 a.buy_track(j.get_track_id(), user.login, time)
             return 1

@@ -1,6 +1,7 @@
 import sys
 sys.path.append('../data_base')
 sys.path.append('../user')
+sys.path.append('../transactions')
 sys.path.append('../../mediaplayer')
 from mediaplayer import Player_App
 from tracks_data import Tracks_data
@@ -96,10 +97,11 @@ class Track:
         return self._tags
 
     def buy(self, user, time):
+        total_price = 0
         a = Tracks_data()
         if a.check_track_for_buy(self._id_track, user.login):
-                total_price += i.get_track_price()
-        if user.alter_user(balance = -1 * total_price):
+            total_price += i.get_track_price()
+        if Payment.update_balance(user, total_price):
             a.buy_track(j.get_track_id(), user.login, time)
             return 1
         else:
