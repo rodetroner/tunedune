@@ -2,7 +2,7 @@ import sys
 sys.path.append('../data_base')
 sys.path.append('../user')
 sys.path.append('../../mediaplayer')
-#from mediaplayer import Player_Window
+from mediaplayer import Player_App
 from tracks_data import Tracks_data
 from abc import ABCMeta, abstractmethod
 from user import User
@@ -105,10 +105,9 @@ class Track:
         else:
             return 0
         
-    #def play_track(self):
-    #    mediaplayer.Player_Window(self._path, self._cover_path)
-    #do that in mediaplayer with observer or smthing
-
+    def play_track(self):
+        Player_App(self._path, self._cover_path)
+    
     def add_to_album(self, album):
         album.add_track(self)
 

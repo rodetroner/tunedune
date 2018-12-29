@@ -47,6 +47,10 @@ class Ads_data():
             self.connection.commit()
         return 1
 
+    def get_ad_type(self, type_id):
+        self.cursor.execute("select ads_type_name from ads_types where id_ads_type = %s", (type_id))
+        return self.cursor.fetchall()
+
 '''#uncoment to test (id may not be right for test)
 a = Ads_data()
 print(a.get_ads())

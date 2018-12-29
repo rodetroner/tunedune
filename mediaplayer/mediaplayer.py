@@ -7,11 +7,12 @@ from player_model import *
 
 class Player_Window(FloatLayout):
     def __init__(self, path, cover_path, **kwargs):
-        super(Player_Window, self).__init__()
         self._disabled_count = 0
-        self.reset_player(path, cover_path)
+        if not (path == "" and cover_path == ""):
+            self.reset_player(path, cover_path)
 
     def reset_player(self, path, cover_path):
+        super(Player_Window, self).__init__()
         self.clear_widgets()
         self.player_w = Player(path)                                 #create instance of Player
         self.player_w.play_track()
