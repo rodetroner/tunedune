@@ -7,8 +7,13 @@ from player_model import *
 
 class Player_Window(FloatLayout):
     def __init__(self, path, cover_path, **kwargs):
-        super(Player_Window, self).__init__()
         self._disabled_count = 0
+        if not (path == "" and cover_path == ""):
+            self.reset_player(path, cover_path)
+
+    def reset_player(self, path, cover_path):
+        super(Player_Window, self).__init__()
+        self.clear_widgets()
         self.player_w = Player(path)                                 #create instance of Player
         self.player_w.play_track()
         self.player_w.player.audio_set_volume(25)
@@ -46,22 +51,44 @@ class Player_Window(FloatLayout):
         self.add_widget(self.forward)
         self.add_widget(self.volume_icon)
         self.media_slider.start_clock()
-        
+
+class OP_Exception(Exception):
+    pass
+
 class Player_App(App):
+    player_pool = list((Player_Window("", ""), Player_Window("", "")))
+    
     def __init__(self, path, cover_path, **kwargs):
         #resources.resource_add_path("path to folder where stored")       #<-- uncomment and fill after fetching files from server is done!!!!!!
         self._path = path
         self._cover_path = cover_path
         super(Player_App, self).__init__(**kwargs)
         
+        
     def build(self):
-        self._player_window = Player_Window(self._path, self._cover_path)
+        #self._player_window = Player_Window(self._path, self._cover_path)
+        self._player_window = Player_App.get_player(self._path, self._cover_path)
+        print(self._player_window)
         #change_slider_state(self._player_window.media_slider.change_state, self._player_window.player_w.player.get_position)
         return self._player_window
     
     def on_stop(self):
         self._player_window.player_w.player.stop()
+        Player_App.free_player(Player_App, self._player_window)
 
-        
+    @classmethod
+    def get_player(cls, path, cover):
+        try:
+            if Player_App.player_pool == []:
+                raise OP_Exception('You already have maximum windows with player open')
+            else:
+                Player_App.player_pool[0].reset_player(path, cover)
+                return Player_App.player_pool.pop(0)
+        except OP_Exception as e:
+            print(e.args)
 
-Player_App('test.mp3', '').run()           #uncomment to test
+    def free_player(cls, p):
+        Player_App.player_pool.append(p)
+
+
+#Player_App('test.mp3', '').run()           #uncomment to test
