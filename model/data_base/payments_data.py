@@ -35,6 +35,11 @@ class Paymentss_data():
         self.connection.commit()
         return 1
 
+    def mark_realized(id_payment, date)
+        self.connection.begin()
+        self.cursor.execute("UPDATE payments SET date_of_realization = %s, payment_status = 1 WHERE id_payment = %s;", (date, id_payment))
+        self.connection.commit()
+        
 '''#uncoment to test (id may not be right for test)
 a = Paymentss_data()
 print(a.check_schedule(show_all = True))
