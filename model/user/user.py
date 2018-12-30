@@ -16,6 +16,23 @@ class User:
             return 0
         Users_data().alter_user(self.login, login = login, email = emai, passwordd = passwordd, balance_change = balance)
         return 1
+
+    def check_if_in_ban_list(self, x):
+        if x in banlist:
+            return 1
+        else:
+            return 0
+
+    @classmethod
+    def alter_bans(self, id_ban, login, add = True):
+        if self.check_if_in_ban_list(x):
+            return 0
+        if add:
+            Users_data().add_ban(id_ban, login)
+        else:
+            Users_data().drop_ban(id_ban, login)
+        return 1
+        
         
     @classmethod
     def login(cls, login, password):
