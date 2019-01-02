@@ -1,7 +1,9 @@
 import sys
+
 sys.path.append('../data_base')
 sys.path.append('../user')
 sys.path.append('../../mediaplayer')
+
 from ads_data import Ads_data
 from user import User
 from mediaplayer import Player_App

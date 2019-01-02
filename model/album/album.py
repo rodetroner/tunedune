@@ -1,7 +1,9 @@
 import sys
+
 sys.path.append('../data_base')
 sys.path.append('../user')
 sys.path.append('../track')
+
 from albums_data import Albums_data
 from track import *
 from user import User
@@ -37,8 +39,13 @@ class Album_Builder(Builder):
 class Album_Builder_Director:
     @classmethod
     def cosntruct(cls, data = list()):
-        return Album_Builder().set_data(data).set_authors().set_tags().set_tracks().get_final()
-
+        return (Album_Builder()
+                .set_data(data)
+                .set_authors()
+                .set_tags()
+                .set_tracks()
+                .get_final()
+               )
 class Album:
     def __init__(self):
         self._id_album = None

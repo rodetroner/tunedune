@@ -13,7 +13,9 @@ class Paymentss_data():
             self.cursor.execute("select * from payments where id_payment = %s", (id_payment)) 
             return self.cursor.fetchall()
         if id_payment != '':
-            self.cursor.execute("select * from payments where id user = (select id_user from users where login = %s)", (login)) 
+            self.cursor.execute("select * from payments where id user = (select id_user from users where login = %s)",
+                                (login)
+                                ) 
             return self.cursor.fetchall()
         if show_all:
             self.cursor.execute("select * from payments")
@@ -25,7 +27,11 @@ class Paymentss_data():
         
     def schedule_payment(self, login, value, payment_type, payment_destination = '', date_of_order = datetime.date.today()):
         self.connection.begin()
-        self.cursor.execute("INSERT INTO payments (id_user, payment_value, id_payment_type, payment_destination, date_of_order) VALUES ((select id_user from users where login = %s), %s, %s, %s, %s)", (login, value, payment_type, payment_destination, date_of_order))
+        self.cursor.execute("INSERT INTO payments \
+                            (id_user, payment_value, id_payment_type, payment_destination, date_of_order) \
+                            VALUES ((select id_user from users where login = %s), %s, %s, %s, %s)",
+                            (login, value, payment_type, payment_destination, date_of_order)
+                            )
         self.connection.commit()
         return 1
 
@@ -37,7 +43,9 @@ class Paymentss_data():
 
     def mark_realized(id_payment, date)
         self.connection.begin()
-        self.cursor.execute("UPDATE payments SET date_of_realization = %s, payment_status = 1 WHERE id_payment = %s;", (date, id_payment))
+        self.cursor.execute("UPDATE payments SET date_of_realization = %s, payment_status = 1 WHERE id_payment = %s;",
+                            (date, id_payment)
+                            )
         self.connection.commit()
         
 '''#uncoment to test (id may not be right for test)

@@ -1,8 +1,10 @@
 import sys
+
 sys.path.append('../data_base')
 sys.path.append('../user')
 sys.path.append('../transactions')
 sys.path.append('../../mediaplayer')
+
 from mediaplayer import Player_App
 from tracks_data import Tracks_data
 from abc import ABCMeta, abstractmethod

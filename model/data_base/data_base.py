@@ -1,4 +1,5 @@
 import pymysql
+
 from pymysql.connections import Connection
 from pymysql.cursors import Cursor
 from pymysql.err import DatabaseError
@@ -10,7 +11,11 @@ class Data_Base():
          
         def connect_to_data_base(self):
             try:
-                self.connection = Connection(host = '127.0.0.1', user = 'root', password = 'tunedunedbpass1!', database = 'tunedune_db', port = 3306)
+                self.connection = Connection(host = '127.0.0.1',
+                                             user = 'root',
+                                             password = 'tunedunedbpass1!',
+                                             database = 'tunedune_db',
+                                             port = 3306)
             except DatabaseError:
                 print('Error on creating connection')
                 return None
@@ -36,4 +41,3 @@ class Data_Base():
 
     def disconnect(self):
         Data_Base.DB_instance.disconnect()
-

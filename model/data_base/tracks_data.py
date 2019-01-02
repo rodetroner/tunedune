@@ -9,27 +9,43 @@ class Tracks_data():
 
     def get_tracks(self, track_name = '', authors = list(), tags = list(), id_track = ''):
         if id_track != '':
-            self.cursor.execute("select id_track, track_name, durration, track_price, path, track_status, cover_path from track where id_track = %s", (id_track)) 
+            self.cursor.execute("select id_track, track_name, durration, track_price, path, track_status, cover_path \
+                                from track where id_track = %s",
+                                (id_track)
+                                ) 
             return self.cursor.fetchall()
         temp = list()
         rvalue = list()
         track_name = '%' + track_name + '%'
         if authors !=  []:
-            self.cursor.execute("select id_track, track_name, durration, track_price, path, track_status, cover_path from track where track_name like %s", ('%' + track_name + '%'))
+            self.cursor.execute("select id_track, track_name, durration, track_price, path, track_status, cover_path \
+                                from track where track_name like %s",
+                                ('%' + track_name + '%'))
             t = self.cursor.fetchall()
             for o in t:
                 for i in authors:
-                    if not self.cursor.execute("select id_track from authors_to_tracks join authors on authors.id_author = authors_to_tracks.id_author where id_track like %s and author.author_name like %s", (o[0], '%' + i + '%')):
+                    if not self.cursor.execute("select id_track from authors_to_tracks \
+                                                join authors on authors.id_author = authors_to_tracks.id_author \
+                                               where id_track like %s and author.author_name like %s",
+                                               (o[0], '%' + i + '%')
+                                               ):
                         break
                 else:
                     temp.append(o)
         else:
-            self.cursor.execute("select id_track, track_name, durration, track_price, path, track_status, cover_path from track where track_name like %s", ('%' + track_name + '%'))
+            self.cursor.execute("select id_track, track_name, durration, track_price, path, track_status, cover_path \
+                                from track where track_name like %s",
+                                ('%' + track_name + '%')
+                                )
             temp = self.cursor.fetchall()
         if tags != []:
             for i in temp:
                 for j in tags:
-                    if self.cursor.execute("select id_track from tags join tags_to_tracks on tags.id_tag = tags_to_tracks.id_tag where id_track = %s and tag_name = %s", (i[0], j)):
+                    if self.cursor.execute("select id_track from tags \
+                                           join tags_to_tracks on tags.id_tag = tags_to_tracks.id_tag \
+                                           where id_track = %s and tag_name = %s",
+                                           (i[0], j)
+                                           ):
                         break
                 else: rvalue.append(i)
         else: rvalue = temp
@@ -37,14 +53,20 @@ class Tracks_data():
 
     def get_authors(self, id_track = None):
         if id_track:
-            self.cursor.execute("select author_name, id_author, id_user from author where id_author in (select id_author from authors_to_tracks where id_track = %s)", (id_track))
+            self.cursor.execute("select author_name, id_author, id_user from author\
+                                where id_author in (select id_author from authors_to_tracks where id_track = %s)",
+                                (id_track)
+                                )
         else:
             self.cursor.execute("select author_name, id_author, id_user from author")
         return self.cursor.fetchall()
 
     def get_tags(self, id_track = None):
         if id_track:
-            self.cursor.execute("select tag_name, id_tag from tags where id_tag in (select id_tag from tags_to_tracks where id_track = %s)", (id_track))
+            self.cursor.execute("select tag_name, id_tag from tags where id_tag in (select id_tag from tags_to_tracks\
+                                where id_track = %s)",
+                                (id_track)
+                                )
         else:
             self.cursor.execute("select tag_name, id_tag from tags")
         return self.cursor.fetchall()
@@ -54,7 +76,10 @@ class Tracks_data():
             return 0
         else:
             self.connection.begin()
-            self.cursor.execute("INSERT INTO track (track_name, durration, track_price, path, track_status, cover_path) VALUES (%s, %s, %s, %s, %s)", (track_name, durration, track_price, path, track_status, cover_path))
+            self.cursor.execute("INSERT INTO track (track_name, durration, track_price, path, track_status, cover_path)\
+                                VALUES (%s, %s, %s, %s, %s)",
+                                (track_name, durration, track_price, path, track_status, cover_path)
+                                )
             self.connection.commit()
             return 1
 
@@ -88,14 +113,20 @@ class Tracks_data():
         return 1
 
     def check_track_for_buy(self, track_id, user_login):
-        if self.cursor.execute("select * from users_to_tracks join users on users.id_user = users_to_track.id_user where id_track = %s and user_login = %s", (track_id, user_login)):
+        if self.cursor.execute("select * from users_to_tracks join users on users.id_user = users_to_track.id_user\
+                               where id_track = %s and user_login = %s",
+                               (track_id, user_login)
+                               ):
             return 0
         else:
             return 1
 
     def buy_track(self, track, user, time):
         self.connection.begin()
-        self.cursor.execute("INSERT INTO users_to_tracks (id_track, id_user, expiration_date) VALUES (%s, (select id_user from users where login = %s), %s)", (id_track, user, time))
+        self.cursor.execute("INSERT INTO users_to_tracks (id_track, id_user, expiration_date)\
+                            VALUES (%s, (select id_user from users where login = %s), %s)",
+                            (id_track, user, time)
+                            )
         self.connection.commit()
         
 '''#uncoment to test (id may not be right for test)

@@ -1,5 +1,7 @@
 import kivy
+
 kivy.require('1.10.1')
+
 from kivy.app import App
 from kivy.uix.floatlayout import FloatLayout
 from player_view import *
@@ -14,16 +16,30 @@ class Player_Window(FloatLayout):
     def reset_player(self, path, cover_path):
         super(Player_Window, self).__init__()
         self.clear_widgets()
-        self.player_w = Player(path)                                 #create instance of Player
+        self.player_w = Player(path)
         self.player_w.play_track()
         self.player_w.player.audio_set_volume(25)
         self.cover = Display_area(cover_path)
-        self.button_play = My_toggle_btn('playbutton.png', self.player_w.player.play, path2 = 'stopbutton.png', function2 = self.player_w.player.pause, get_length = self.player_w.player.get_length, get_time = self.player_w.player.get_time) 
-        self.forward = My_Button('forwardbutton.png', self.player_w.forward_5_sec)
-        self.backwards = My_Button('backwardsbutton.png', self.player_w.backwards_5_sec)
+        self.button_play = My_toggle_btn('playbutton.png',
+                                         self.player_w.player.play,
+                                         path2 = 'stopbutton.png',
+                                         function2 = self.player_w.player.pause,
+                                         get_length = self.player_w.player.get_length,
+                                         get_time = self.player_w.player.get_time
+                                         ) 
+        self.forward = My_Button('forwardbutton.png',
+                                 self.player_w.forward_5_sec
+                                 )
+        self.backwards = My_Button('backwardsbutton.png',
+                                   self.player_w.backwards_5_sec
+                                   )
         self.volume_slider = Volume_Slider(self.player_w.player.audio_set_volume)
-        self.button_repeat = My_Button('repeatbutton.png', lambda: self.player_w.repeat(self.button_play))
-        self.media_slider = Media_Slider(self.player_w.player.set_position, self.player_w.player.is_playing, self.player_w.player.get_time,self.player_w.player.get_length)
+        self.button_repeat = My_Button('repeatbutton.png',
+                                       lambda: self.player_w.repeat(self.button_play))
+        self.media_slider = Media_Slider(self.player_w.player.set_position,
+                                         self.player_w.player.is_playing,
+                                         self.player_w.player.get_time,
+                                         self.player_w.player.get_length)
         self.volume_icon = My_Button('volume.png', lambda: None)
         self.cover.pos_hint = {'center_x': 0.5, 'center_y': 0.5}
         self.button_repeat.pos_hint = {'center_x': 0.1, 'center_y': 0.1}
@@ -59,17 +75,14 @@ class Player_App(App):
     player_pool = list((Player_Window("", ""), Player_Window("", "")))
     
     def __init__(self, path, cover_path, **kwargs):
-        #resources.resource_add_path("path to folder where stored")       #<-- uncomment and fill after fetching files from server is done!!!!!!
+        #resources.resource_add_path("path to folder where stored")
+        #uncomment and fill after fetching files from server is done!!!!!!
         self._path = path
         self._cover_path = cover_path
         super(Player_App, self).__init__(**kwargs)
         
-        
     def build(self):
-        #self._player_window = Player_Window(self._path, self._cover_path)
         self._player_window = Player_App.get_player(self._path, self._cover_path)
-        print(self._player_window)
-        #change_slider_state(self._player_window.media_slider.change_state, self._player_window.player_w.player.get_position)
         return self._player_window
     
     def on_stop(self):
@@ -89,6 +102,5 @@ class Player_App(App):
 
     def free_player(cls, p):
         Player_App.player_pool.append(p)
-
 
 #Player_App('test.mp3', '').run()           #uncomment to test
