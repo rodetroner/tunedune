@@ -4,8 +4,9 @@
 - Fixed a bug with unnecessary directory that appeared earlier.
 - Added methods for payments handeling.
 - Added methods to operate on ban lists of users.
-- Changed mechanism of buying tracks and albums.
 - Added changelog file.
+- Changed mechanism of buying tracks and albums.
+- Styled code
 
 ## [0.0.11] - 2018.12.29
 - Added module for data base connection handler.
