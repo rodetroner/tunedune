@@ -23,7 +23,9 @@ class Users_data():
         return self.cursor.fetchall()
 
     def get_banlist(self, login):
-        self.cursor.execute("select id_ban from bans_to_users where id_user = (select id from users where login = %s)", (login))
+        self.cursor.execute("select id_ban from bans_to_users where id_user = (select id from users where login = %s)",
+                            (login)
+                            )
         return self.cursor.fetchall()
 
     def get_bans(self):
@@ -32,12 +34,16 @@ class Users_data():
 
     def add_ban(self, id_ban, login):
         self.connection.begin()
-        self.cursor.execute("INSERT INTO bans_to_users (id_user, id_ban) VALUES ((select id_user from users where login = %s), %s)", (login, id_ban))
+        self.cursor.execute("INSERT INTO bans_to_users (id_user, id_ban)\
+                            VALUES ((select id_user from users where login = %s), %s)",
+                            (login, id_ban)
+                            )
         self.connection.commit()
 
     def drop_ban(self, id_ban, login):
         self.connection.begin()
-        self.cursor.execute("DELETE FROM bans_to_users where id_user = (select id_user from users where login = %s) and id_ban = %s", (login, id_ban))
+        self.cursor.execute("DELETE FROM bans_to_users where id_user = (select id_user from users where login = %s) \
+                            and id_ban = %s", (login, id_ban))
         self.connection.commit()
         
     def get_cc_payment(self, login):
@@ -51,14 +57,25 @@ class Users_data():
 
     def start_user_session(self, login):
         self.connection.begin()
-        self.cursor.execute("INSERT INTO sessions (id_user, start) VALUES ((select id_user from users where login = %s), %s)", (login, datetime.datetime.now()))
+        self.cursor.execute("INSERT INTO sessions (id_user, start)\
+                            VALUES ((select id_user from users where login = %s), %s)",
+                                (
+                                 login,
+                                 datetime.datetime.now()
+                                )
+                            )
         self.connection.commit()
         self.cursor.execute("select LAST_INSERT_ID()")
         return  self.cursor.fetchall()
 
     def end_user_session(self, session):
         self.connection.begin()
-        self.cursor.execute("UPDATE sessions SET end = %s WHERE id_session = %s;", (datetime.datetime.now(), session))
+        self.cursor.execute("UPDATE sessions SET end = %s WHERE id_session = %s;",
+                                (
+                                 datetime.datetime.now(),
+                                 session
+                                )
+                            )
         self.connection.commit()    
         
     def add_user(self, username = '', email = '', password = ''):
@@ -66,7 +83,9 @@ class Users_data():
             return 0
         else:
             self.connection.begin()
-            self.cursor.execute("INSERT INTO users (login, password, email) VALUES (%s, %s, %s)", (username, password, email))
+            self.cursor.execute("INSERT INTO users (login, password, email) VALUES (%s, %s, %s)",
+                                (username, password, email)
+                                )
             self.connection.commit()
             return 1
 
@@ -82,7 +101,9 @@ class Users_data():
             if email != '':
                 self.cursor.execute("UPDATE users SET email = %s WHERE login = %s;", (email, login))
             if balance_change != 0:
-                self.cursor.execute("UPDATE users SET balance = balance + %s WHERE login = %s;", (balance_change, login))
+                self.cursor.execute("UPDATE users SET balance = balance + %s WHERE login = %s;",
+                                    (balance_change, login)
+                                    )
             self.connection.commit()
         return 1
 

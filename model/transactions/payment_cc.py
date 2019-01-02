@@ -1,5 +1,7 @@
 import sys
+
 sys.path.append('../data_base')
+
 from users_data import Users_data
 from payments_data import Payments_data
 from datetime import date
@@ -11,7 +13,10 @@ class Payment_CC:
 
     @classmethod
     def pay_cc(cls, login, payment_type, payment_destination):
-        Payments_data.schedule_payment(login, Payment_CC.check_balance(login), payment_type, payment_destination = payment_destination)
+        Payments_data.schedule_payment(login,
+                                       Payment_CC.check_balance(login),
+                                       payment_type,
+                                       payment_destination = payment_destination)
         Users_data().clear_cc_payment(login)
 
 
@@ -34,5 +39,3 @@ class Payment_CC:
     @classmethod
     def mark_realized(id_payment, date = date.today()):
         Payments_data.mark_realized(id_payment, date)
-    
-            

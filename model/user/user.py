@@ -1,5 +1,7 @@
 import sys
+
 sys.path.append('../data_base')
+
 from argon2 import PasswordHasher
 from users_data import Users_data as user
 
@@ -11,10 +13,14 @@ class User:
         self.balance = a[0][2]
         self.banlist = Users_data().get_banlist(self.login)
 
-    def alter_user(self, login = '', email = '', passwordd = '', balance = 0):
+    def alter_user(self, login = '', email = '', password = '', balance = 0):
         if balance > self.balance:
             return 0
-        Users_data().alter_user(self.login, login = login, email = emai, passwordd = passwordd, balance_change = balance)
+        Users_data().alter_user(self.login,
+                                login = login,
+                                email = emai,
+                                password = password,
+                                balance_change = balance)
         return 1
 
     def check_if_in_ban_list(self, x):
@@ -60,9 +66,3 @@ class User:
     @classmethod
     def logout(session):
         Users_data().end_user_session()
-              
-        
-        
-        
-
-

@@ -1,7 +1,9 @@
 import vlc
 import time
 import kivy
+
 kivy.require('1.10.1')
+
 from kivy.uix.widget import Widget
 from kivy.uix.button import Button
 from kivy.uix.image import Image
@@ -25,12 +27,12 @@ class Display_area(AsyncImage):
             self.source = source
 
 class My_Sliders(Slider):
-    def __init__(self, method_set, initial_value):     #passing methods so no need for passing player
+    def __init__(self, method_set, initial_value):
         super(My_Sliders, self).__init__(min = 0, max = 100, value = initial_value)
         self.method_set = method_set
 
 class Volume_Slider(My_Sliders):
-    def __init__(self, method_set):     #passing methods so no need for passing player
+    def __init__(self, method_set):
         super(Volume_Slider, self).__init__(method_set = method_set, initial_value = 25)
 
     def on_touch_up(self, touch):
@@ -64,8 +66,6 @@ class Media_Slider(My_Sliders):
         if self.track_length() != -1:
             if self.track_is_playing() and self.method_get_time() < self.track_length():
                 self.value = self.method_get_time() / self.track_length() * 100
-        #print(self.method_get_time())
-
 
 class My_Button(ButtonBehavior, Image):
     def __init__(self, path, function, **kwargs):
@@ -91,7 +91,6 @@ class My_toggle_btn(My_Button):
     
     def on_press(self):
         self.function()
-        #print(self.player.player.get_length())
         if self.player_get_time() / (self.player_get_length() + 2**-10) < 1:   
             self.toogle()
 
@@ -104,4 +103,3 @@ class My_toggle_btn(My_Button):
             self.version = 0
             self.source = self.path1
             self.function = self.function1
-    
