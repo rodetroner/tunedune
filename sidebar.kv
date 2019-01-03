@@ -1,0 +1,45 @@
+<Button>:
+	font_size: 18 
+	height: 40
+	width: 300 
+	halign: 'left'
+	valign: 'center'
+	text_size: self.size
+	size_hint: (None, None) 
+	padding: (6, 6)
+
+<Sidebar@StackLayout>:
+    orientation: 'tb-lr'
+    Label:
+        id: app_name
+        size_hint: (1, None)
+        font_size: 20
+        height: 40
+     #   width: 300
+        text: 'TuneDune'
+    Button:
+        id: user_button
+        text: 'Username'
+    TextInput:
+        id: search_button 
+        size_hint: (None, None)
+        font_size: 18 
+        height: 40 
+        width: 300 
+        text: 'Search...'
+    Button:
+        id: shop_button
+        text: 'Shop'
+    Button:
+        id: music_button
+        text: 'My Music'
+    Button:
+        id: album_button
+        text: 'Albums'
+    Button:
+        id: contact_button
+        text: 'Contact'
+    Button:
+        id: settings_button
+        text: 'Settings'
+
