@@ -1,3 +1,5 @@
+#:kivy 1.10.1
+#:import sidebar sidebar
 <Button>:
 	font_size: 18 
 	height: 40
@@ -8,7 +10,7 @@
 	size_hint: (None, None) 
 	padding: (6, 6)
 
-<Sidebar@StackLayout>:
+<Sidebar>:
     orientation: 'tb-lr'
     Label:
         id: app_name
@@ -30,6 +32,7 @@
     Button:
         id: shop_button
         text: 'Shop'
+        on_press: root.shop(*args)
     Button:
         id: music_button
         text: 'My Music'
