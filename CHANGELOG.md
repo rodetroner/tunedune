@@ -1,5 +1,8 @@
 #Changelog for tunedune project
 
+## [0.0.13] - 2019.01.05
+- Added Docstrings for model modules and mediaplayer module.
+
 ## [0.0.12] - 2019.01.02
 - Fixed a bug with unnecessary directory that appeared earlier.
 - Added methods for payments handeling.
