@@ -5,7 +5,9 @@ sys.path.append('../user')
 from user import User
 from abc import ABCMeta, abstractmethod
 
-class Transaction(ABCMeta): 
+class Transaction(ABCMeta):
+    """Base class for handeling users balance.
+    """
     @abstractmethod
     def dekorator(fun):
         pass
@@ -16,6 +18,8 @@ class Transaction(ABCMeta):
         user.alter_user(balance = value)
 
 class Payment(Transaction):
+    """Class for balance decresing opperations. 
+    """
     def dekorator(fun):
         def wraper(user, value):
             if user.balance < value:
@@ -25,6 +29,8 @@ class Payment(Transaction):
             return 1
 
 class Top_up(Transaction):
+    """Class for balance incresing opperations through external means. 
+    """
     def dekorator(fun):
         def wraper(user, value):
             #validate code passed as value, not present in system though
@@ -33,6 +39,8 @@ class Top_up(Transaction):
 
 
 class Freebies(Transaction):
+    """Class for balance incresing opperations through internal means.
+    """
     def dekorator(fun):
         def wraper(user, value):
             #validate code passed as value, not present in system though

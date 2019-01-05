@@ -8,12 +8,21 @@ from player_view import *
 from player_model import *
 
 class Player_Window(FloatLayout):
+    """Class that defines, binds and contais all of mediaplayers features. Only two instances may exist in app.
+    """
     def __init__(self, path, cover_path, **kwargs):
+        """If valid paths were provided constructor will call for method that will create window for app.
+        """
         self._disabled_count = 0
         if not (path == "" and cover_path == ""):
             self.reset_player(path, cover_path)
 
     def reset_player(self, path, cover_path):
+        """Based on paths provided creates and adds elements to window of a player.
+
+        Instance of Player is created here as well as all GUI elements. It also binds methods to GUI elements.
+        Starts dispatcher for progress slider movement. At the begining clears previously created window.
+        """
         super(Player_Window, self).__init__()
         self.clear_widgets()
         self.player_w = Player(path)
@@ -72,6 +81,8 @@ class OP_Exception(Exception):
     pass
 
 class Player_App(App):
+    """Class that will run application of mediaplayer.
+    """
     player_pool = list((Player_Window("", ""), Player_Window("", "")))
     
     def __init__(self, path, cover_path, **kwargs):
@@ -82,15 +93,21 @@ class Player_App(App):
         super(Player_App, self).__init__(**kwargs)
         
     def build(self):
+        """Method for building up materials that its supposed to run.
+        """
         self._player_window = Player_App.get_player(self._path, self._cover_path)
         return self._player_window
     
     def on_stop(self):
+        """Actions on window's closing.
+        """
         self._player_window.player_w.player.stop()
         Player_App.free_player(Player_App, self._player_window)
 
     @classmethod
     def get_player(cls, path, cover):
+        """Method to get object of Window_Player from pool.
+        """
         try:
             if Player_App.player_pool == []:
                 raise OP_Exception('You already have maximum windows with player open')
@@ -101,6 +118,8 @@ class Player_App(App):
             print(e.args)
 
     def free_player(cls, p):
+        """Returns Player_Window to pool.
+        """
         Player_App.player_pool.append(p)
 
-#Player_App('test.mp3', '').run()           #uncomment to test
+Player_App('test.mp3', '').run()           #uncomment to test

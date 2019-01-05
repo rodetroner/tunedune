@@ -1,6 +1,8 @@
 import data_base
 
 class Tracks_data():
+    """Class for handeling operations on data regarding tracks.
+    """
     def __init__(self):
         self.db = data_base.Data_Base()
         self.db.connect_to_data_base()
@@ -8,6 +10,10 @@ class Tracks_data():
         self.cursor = self.db.db_cursor
 
     def get_tracks(self, track_name = '', authors = list(), tags = list(), id_track = ''):
+        """Returns datas needed for creation of objects representing ads as a list
+
+        May be called with list of authors/tags searched, partial name.
+        """
         if id_track != '':
             self.cursor.execute("select id_track, track_name, durration, track_price, path, track_status, cover_path \
                                 from track where id_track = %s",
@@ -52,6 +58,8 @@ class Tracks_data():
         return set(rvalue)
 
     def get_authors(self, id_track = None):
+        """Returns info about authors of track as a list.
+        """
         if id_track:
             self.cursor.execute("select author_name, id_author, id_user from author\
                                 where id_author in (select id_author from authors_to_tracks where id_track = %s)",
@@ -62,6 +70,8 @@ class Tracks_data():
         return self.cursor.fetchall()
 
     def get_tags(self, id_track = None):
+        """Returns info about tags of track as a list.
+        """
         if id_track:
             self.cursor.execute("select tag_name, id_tag from tags where id_tag in (select id_tag from tags_to_tracks\
                                 where id_track = %s)",
@@ -72,6 +82,8 @@ class Tracks_data():
         return self.cursor.fetchall()
     
     def add_track(self, track_name, durration, track_price, path, track_status, cover_path):
+        """Inserts to data base record widh data regarding new track.
+        """
         if track_name == '' or durration == '' or track_price == '' or path == '' or track_status == '':
             return 0
         else:
@@ -84,6 +96,8 @@ class Tracks_data():
             return 1
 
     def alter_track(self, id_track, track_name= '', durration= '', track_price= '', path= '', track_status = '',cover_path = ''):
+        """Changes data in database, regarding track.
+        """
         if track_name == '' and durration == '' and track_price == '' and path == '' and track_status == '':
             return 0
         else:
@@ -104,6 +118,8 @@ class Tracks_data():
         return 1
     
     def delete_track(self, id_track):
+        """Removes data from data base of track with provided id.
+        """
         if not id_track:
             return 0
         else:
@@ -113,6 +129,8 @@ class Tracks_data():
         return 1
 
     def check_track_for_buy(self, track_id, user_login):
+        """Returns 1 if user does not have track and 0 if they do.
+        """
         if self.cursor.execute("select * from users_to_tracks join users on users.id_user = users_to_track.id_user\
                                where id_track = %s and user_login = %s",
                                (track_id, user_login)
@@ -122,6 +140,8 @@ class Tracks_data():
             return 1
 
     def buy_track(self, track, user, time):
+        """Insert into data base info about user having access to track.
+        """
         self.connection.begin()
         self.cursor.execute("INSERT INTO users_to_tracks (id_track, id_user, expiration_date)\
                             VALUES (%s, (select id_user from users where login = %s), %s)",

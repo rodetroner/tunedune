@@ -5,7 +5,11 @@ from pymysql.cursors import Cursor
 from pymysql.err import DatabaseError
 
 class Data_Base():
+    """Singleton class for storing connector to DB.
+    """
     class DB:
+        """Actual connector class.
+        """
         def __init__(self):
             self.connect_to_data_base()
          
@@ -25,6 +29,8 @@ class Data_Base():
             if self.connection.open:
                 self.close()
 
+    """Instance of connector's class.
+    """
     DB_instance = None
 
     def __init__(self):
@@ -33,11 +39,17 @@ class Data_Base():
             self.db_cursor = Data_Base.DB_instance.db_cursor
 
     def get_connection(self):
+        """Returns a connection.
+        """
         return Data_Base.DB_instance.connection
         
     def connect_to_data_base(self):
+        """Initializer of DB connection.
+        """
         Data_Base.DB_instance.connect_to_data_base()
         self.db_cursor = Data_Base.DB_instance.db_cursor
 
     def disconnect(self):
+        """Deinitializer of DB connection.
+        """
         Data_Base.DB_instance.disconnect()

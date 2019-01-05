@@ -8,9 +8,13 @@ from albums_data import Albums_data
 from track import *
 from user import User
 
+"""List of schearched albums.
+"""
 curr_searched_album_list = list()
 
 class Album_Builder(Builder):
+    """Part of builder of Albums
+    """
     def __init__(self):
         self.ad = Albums_data()
         self.album = Album() 
@@ -37,6 +41,8 @@ class Album_Builder(Builder):
         return self.album
 
 class Album_Builder_Director:
+    """Part of albums builder.
+    """
     @classmethod
     def cosntruct(cls, data = list()):
         return (Album_Builder()
@@ -47,6 +53,8 @@ class Album_Builder_Director:
                 .get_final()
                )
 class Album:
+    """Class for handeling albums informations, and actions like buying.
+    """
     def __init__(self):
         self._id_album = None
         self._album_name = None
@@ -89,6 +97,8 @@ class Album:
             return 0
         
 def search_album(name = '', owner = None, authors = list(), tags = list()):
+    """updates searched albums list.
+    """
     a = Albums_data().get_albums(name = name, owner = owner, authors = authors, tags = tags)
     for i in a:
         curr_searched_album_list.append(Album_Builder_Director.cosntruct(i))  

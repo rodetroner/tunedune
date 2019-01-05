@@ -1,6 +1,11 @@
 import vlc
 
 class Player:
+    """Class for handeling operations on mediaplayer.
+    In this class the instance of player is created based on media from given
+    path. It also defines methods to interact with it that may be passed to
+    buttons.
+    """
     def __init__(self, path):
         self.__instance = vlc.Instance()
         self.__media = None
@@ -8,6 +13,8 @@ class Player:
         self.__path = path
     
     def play_track(self):
+        """Sets media for mediaplayer based on path provided in __init__.
+        """
         self.player = self.__instance.media_player_new()      #creating instance of MP
         self.__media = self.__instance.media_new(self.__path)   #create instance of media
         self.player.set_media(self.__media)                   #load file into player
