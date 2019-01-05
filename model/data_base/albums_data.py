@@ -2,6 +2,8 @@ import data_base
 import tracks_data
 
 class Albums_data():
+    """Class for handeling operations on data regarding albums.
+    """
     def __init__(self):
         self.db = data_base.Data_Base()
         self.db.connect_to_data_base()
@@ -9,6 +11,8 @@ class Albums_data():
         self.cursor = self.db.db_cursor
 
     def get_albums(self, name = '', owner = None, authors = list(), tags = list(), id_album = ''):
+        """Returns datas needed for creation of objects representing albums as a list
+        """
         if owner != None:
             self.cursor.execute("select id_album, album_name, owner from albums where album_name \
                                 like %s and owner = %s",
@@ -56,6 +60,8 @@ class Albums_data():
         return set(rvalue)
     
     def add_album(self, album_name, owner = None, tracks_for_album = list()):
+        """Adds new album to data base and binds provided tracks to it as well.
+        """
         self.connection.begin()
         self.cursor.execute("INSERT INTO albums (album_name, owner) VALUES (%s, %s)", (album_name, owner))
         self.connection.commit()
@@ -64,6 +70,8 @@ class Albums_data():
         return 1
 
     def alter_album(self, id_album, album_name= '', new_owner = None):
+        """Changes data in database, regarding album with given id.
+        """
         self.connection.begin()
         if new_owner:
             if album_name != '':
@@ -78,6 +86,8 @@ class Albums_data():
         return 1
 
     def delete_album(self, id_album):
+        """Removes data from data base of aalbum with provided id.
+        """
         if not id_album:
             return 0
         else:
@@ -88,6 +98,8 @@ class Albums_data():
         return 1
 
     def delete_track_from_album(self, id_album, track_id_list = list(), all_tracks = False):
+        """Removes tracks from list of album tracks.
+        """
         if all_tracks:
             self.connection.begin()
             self.cursor.execute("DELETE FROM albums WHERE id_album = %s", (id_album))
@@ -101,6 +113,8 @@ class Albums_data():
             self.connection.commit()
 
     def add_tracks_to_album(self, id_album, track_id_list = list()):
+        """Adds tracks from list of album tracks.
+        """
         if id_album == []:
             return
         self.connection.begin()
@@ -109,6 +123,8 @@ class Albums_data():
         self.connection.commit()
 
     def get_tracks_from_album(self, id_album):
+        """Returns a list of ids of tracks in album.
+        """
         tmp = list()
         self.cursor.execute("select id_track FROM tracks_to_albums WHERE id_album = %s", (id_album))
         a = self.cursor.fetchall()
@@ -117,6 +133,8 @@ class Albums_data():
         return tmp
 
     def get_authors(self, id_album = None):
+        """Returns a list of all authors data.
+        """
         if id_album:
             self.cursor.execute("select author_name, id_author, id_user from author \
                                 where id_author in (select id_author from authors_to_albums where id_album = %s)",
@@ -127,6 +145,8 @@ class Albums_data():
         return self.cursor.fetchall()
 
     def get_tags(self, id_album = None):
+        """Returns a list of all tags data.
+        """
         if id_album:
             self.cursor.execute("select tag_name, id_tag from tags where id_tag in \
                                 (select id_tag from tags_to_albums where id_album = %s)",

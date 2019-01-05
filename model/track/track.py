@@ -10,9 +10,13 @@ from tracks_data import Tracks_data
 from abc import ABCMeta, abstractmethod
 from user import User
 
+"""List of tracks currently fetched from data base, updated by functions in module.
+"""
 curr_searched_track_list = list()
 
 class Builder:
+    """Part of builder for Track.
+    """
     __metaclass__ = ABCMeta
 
     @abstractmethod
@@ -28,6 +32,8 @@ class Builder:
         pass
 
 class Track_Builder(Builder):
+    """Part of builder for Track.
+    """
     def __init__(self):
         self.td = Tracks_data()
         self.track = Track() 
@@ -54,12 +60,23 @@ class Track_Builder(Builder):
         return self.track
 
 class Track_Builder_Director:
+    """Part of builder for Track.
+    """
     @classmethod
     def cosntruct(cls, data = list()):
+        """Returns Track object based on data from provided list.
+
+        List should come from module handeling data base.
+        """
         return Track_Builder().set_data(data).set_authors().set_tags().get_final()
     
 
 class Track:
+    """Class for containing information on track, accessing them.
+
+    Also allows to play particular track adding to playlist/album and buing it.
+    Track should be created via Track_Builder_Director class.
+    """
     def __init__(self):
         self._id_track = None
         self._track_name = None
@@ -116,11 +133,17 @@ class Track:
         album.add_track(self)
 
 def search_track(name = '', authors = list(), tags = list()):
+    """Function that based on given arguments will update list (curr_searched_track_list).
+    """
     a = Tracks_data().get_tracks(track_name = name, authors = authors, tags = tags)
     for i in a:
         curr_searched_track_list.append(Track_Builder_Director.cosntruct(i))
 
 def fetch_album_tracks(album_tracks = list()):
+    """Based on list of id track returns list of Track objects
+
+    This should be called from module handeling albums.
+    """
     tmp = list()
     rvalue = list()
     for i in album_tracks:

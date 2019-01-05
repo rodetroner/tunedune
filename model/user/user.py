@@ -6,6 +6,8 @@ from argon2 import PasswordHasher
 from users_data import Users_data as user
 
 class User:
+    """Class aacts as fasade for module responsible for interacting with data base. 
+    """
     def __init__(self, login):
         a = Users_data().get_users(username = login)
         self.login = a[0][0]
@@ -24,6 +26,8 @@ class User:
         return 1
 
     def check_if_in_ban_list(self, x):
+        """Method for checking if user has permission provided in arguments.
+        """
         if x in banlist:
             return 1
         else:
@@ -31,6 +35,8 @@ class User:
 
     @classmethod
     def alter_bans(self, id_ban, login, add = True):
+        """Class method for changing permisions of user with given login.
+        """
         if self.check_if_in_ban_list(x):
             return 0
         if add:
@@ -42,6 +48,10 @@ class User:
         
     @classmethod
     def login(cls, login, password):
+        """Class method for handeling login to app.
+
+        Compares password with the one from data base. Starts session.
+        """
         a = Users_data().get_users(username = login)
         hashed = Users_data().get_password(a[0])
         if PasswordHasher().verify(hashed[0], password):
@@ -51,6 +61,8 @@ class User:
     
     @classmethod
     def regiester(cls, login, password, email):
+        """Puts given data into data base, hashes password.
+        """
         tmp = Users_data()
         a = tmp.get_users(username = login)
         if a:
@@ -65,4 +77,6 @@ class User:
 
     @classmethod
     def logout(session):
+        """End session for user.
+        """
         Users_data().end_user_session()

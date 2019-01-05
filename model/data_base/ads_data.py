@@ -1,6 +1,8 @@
 import data_base
 
 class Ads_data():
+    """Class for handeling operations on data regarding ads.
+    """
     def __init__(self):
         self.db = data_base.Data_Base()
         self.db.connect_to_data_base()
@@ -8,6 +10,8 @@ class Ads_data():
         self.cursor = self.db.db_cursor
 
     def get_ads(self, ads_type = '', ad_provider = ''):
+        """Returns datas needed for creation of objects representing ads as a list
+        """
         self.cursor.execute("select ad_name, ad_path, ad_reward, ad_provider, ads_type from ads \
                             where ads_type like %s and ad_provider like %s",
                             ('%' + ads_type + '%', '%' + ad_provider + '%')
@@ -15,6 +19,8 @@ class Ads_data():
         return self.cursor.fetchall()
     
     def add_ad(self, ad_name, ad_provider, ad_path, ad_reward, ads_type):
+        """Inserts to data base record widh data regarding new ad.
+        """
         if ad_name == '' or ad_provider == '' or ad_path == '' or ad_reward == '' or ads_type == '':
             return 0
         else:
@@ -27,6 +33,8 @@ class Ads_data():
             return 1
 
     def alter_ad(self, id_ad, ad_name= '', ad_provider= '', ad_reward= '', ad_path= '', ads_type = ''):
+        """Changes data in database, regarding ad.
+        """
         if ad_name == '' and ad_provider == '' and ad_reward == '' and ad_path == '' and ads_type == '':
             return 0
         else:
@@ -45,6 +53,8 @@ class Ads_data():
         return 1
 
     def delete_ad(self, id_ad):
+        """Removes data from data base of ad with provided id.
+        """
         if id_ad == None:
             return 0
         else:
@@ -54,6 +64,8 @@ class Ads_data():
         return 1
 
     def get_ad_type(self, type_id):
+        """Fetches from data base type of ad as a list.
+        """
         self.cursor.execute("select ads_type_name from ads_types where id_ads_type = %s", (type_id))
         return self.cursor.fetchall()
 
