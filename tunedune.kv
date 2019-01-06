@@ -1,8 +1,11 @@
+#:kivy 1.10.1
+
 <MainLayout>:
-    anchor_x: 'left'
-    anchor_y: 'top'
     Sidebar:
         id: _sidebar
-    TrackList:
-        id: _track_list
-    
+    RelativeLayout:
+        pos: 300, 0
+        TrackList:
+            id: _track_list
+            size_hint: None, 1 
+            width: 600

@@ -1,8 +1,11 @@
 import kivy
-from kivy.uix.stacklayout import StackLayout
+from kivy.uix.boxlayout import BoxLayout 
 from kivy.uix.button import Button
+kivy.require('1.10.1')
 
-class Sidebar(StackLayout):
+class Sidebar(BoxLayout):
     def shop(self, instance):
-        print("adding a button")
-        self.add_widget(Button())
+        pass
+#        self.add_widget(Button())
+#        TrackList.clear_widgets()
+#        self.parent._track_list.clear_widgets()
