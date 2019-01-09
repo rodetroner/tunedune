@@ -80,3 +80,10 @@ class User:
         """End session for user.
         """
         Users_data().end_user_session()
+
+    @classmethod
+    def get_users(username = '', email = ''):
+        """Method returns a list of users with data like in arguments.
+        """
+        return Users_data().get_users(username, email)
+
