@@ -5,8 +5,10 @@
         orientation: 'vertical'
         TextInput:
             text: 'Username'
+            on_focus: self.text = ''
         TextInput:
             text: 'Password'
+            on_focus: self.text = ''
         Button:
             text: 'Log in'
             on_press:
