@@ -1,29 +1,34 @@
 #:kivy 1.10.1
 #:import tracklist tracklist
+#<Button>:
+#    size_hint: .5, None
 
 <TrackList>:
-    orientation: 'vertical'
-    Label:
-        size_hint: None, None
-        height: 40 
-    Button:
-        id: t_button
-        text: 'track'
-        height: 40
-    Button:
-        id: t_button
-        text: 'track'
-        height: 40
-    Button:
-        id: t_button
-        text: 'track'
-        height: 40
-    Button:
-        id: t_button
-        text: 'track'
-        height: 40
-    Button:
-        id: t_button
-        text: 'track'
-        height: 40
-    Widget:
+    RelativeLayout:
+        pos: 300, 0
+        BoxLayout:
+            orientation: 'vertical'
+            Label:
+                size_hint: None, None
+                height: 40 
+            Button:
+                id: t_button
+                text: 'track'
+                height: 40
+            Button:
+                id: t_button
+                text: 'track'
+                height: 40
+            Button:
+                id: t_button
+                text: 'track'
+                height: 40
+            Button:
+                id: t_button
+                text: 'track'
+                height: 40
+            Button:
+                id: t_button
+                text: 'track'
+                height: 40
+            Widget:

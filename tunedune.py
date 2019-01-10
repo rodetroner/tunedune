@@ -1,4 +1,7 @@
 import kivy
+import sys
+sys.path.append('./model/data_base')
+import users_data
 kivy.require('1.10.1')
 
 from kivy.app import App
@@ -14,6 +17,7 @@ class MainLayout(FloatLayout):
 class TuneDuneApp(App):
     def build(self):
         return MainLayout()
+
 
 if __name__ == '__main__':
     TuneDuneApp().run()
