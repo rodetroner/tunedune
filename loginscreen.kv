@@ -15,7 +15,11 @@
             text: 'Password'
             on_focus: root.clearPassword(*args)
         Button:
+            id: _submit
             text: 'Log in'
+        Button:
+            id: _skip
+            text: 'Skip'
             on_press:
                 root.manager.transition.direction = 'left'
                 root.manager.current = 'main_scr'

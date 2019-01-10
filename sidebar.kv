@@ -21,3 +21,9 @@
     Button:
         id: _settings_button
         text: 'Settings'
+    Button:
+        id: _logout
+        text: 'Log out'
+        on_press:
+            root.parent.parent.manager.transition.direction = 'right'
+            root.parent.parent.manager.current = 'login_scr'

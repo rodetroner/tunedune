@@ -1,5 +1,8 @@
 #Changelog for tunedune project
 
+## [0.0.17] - 2019.01.10
+- Added 'Skip login' and 'Log out' buttons
+
 ## [0.0.16] - 2019.01.10
 - Made input fields on the login screen clear when focused
 - Password text field is masked now
