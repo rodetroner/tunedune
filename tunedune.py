@@ -1,23 +1,19 @@
 import kivy
-import sys
-sys.path.append('./model/data_base')
-import users_data
-kivy.require('1.10.1')
-
 from kivy.app import App
 from kivy.lang import Builder
-from kivy.uix.floatlayout import FloatLayout
+from kivy.uix.boxlayout import BoxLayout
+
+kivy.require('1.10.1')
 
 Builder.load_file('sidebar.kv')
 Builder.load_file('tracklist.kv')
 
-class MainLayout(FloatLayout):
+class MainLayout(BoxLayout):
     pass
 
 class TuneDuneApp(App):
     def build(self):
         return MainLayout()
-
 
 if __name__ == '__main__':
     TuneDuneApp().run()
