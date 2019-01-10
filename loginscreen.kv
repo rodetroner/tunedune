@@ -1,0 +1,22 @@
+#:kivy 1.10.1
+#: import loginscreen loginscreen
+
+<LoginScreen>:
+    login_input: _login_input
+    password_input: _password_input
+    BoxLayout:
+        orientation: 'vertical'
+        TextInput:
+            id: _login_input
+            text: 'Username'
+            on_focus: root.clearLogin(*args)
+        TextInput:
+            id: _password_input
+            text: 'Password'
+            on_focus: root.clearPassword(*args)
+        Button:
+            text: 'Log in'
+            on_press:
+                root.manager.transition.direction = 'left'
+                root.manager.current = 'main_scr'
+ 
