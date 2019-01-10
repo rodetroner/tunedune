@@ -1,5 +1,8 @@
 #Changelog for tunedune project
 
+## [0.0.14] - 2019.01.10
+- Added username display on account button in the sidebar
+
 ## [0.0.13] - 2019.01.05
 - Added Docstrings for model modules and mediaplayer module.
 
