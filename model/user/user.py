@@ -3,7 +3,7 @@ import sys
 sys.path.append('../data_base')
 
 from argon2 import PasswordHasher
-from users_data import Users_data as user
+from users_data import Users_data
 
 class User:
     """Class aacts as fasade for module responsible for interacting with data base. 
@@ -53,8 +53,9 @@ class User:
         Compares password with the one from data base. Starts session.
         """
         a = Users_data().get_users(username = login)
-        hashed = Users_data().get_password(a[0])
-        if PasswordHasher().verify(hashed[0], password):
+        hashed = Users_data().get_password(a[0][0])
+        print(hashed[0][0])
+        if PasswordHasher().verify(hashed[0][0], password):
             Users_data().start_user_session(login)
             return 1
         return 0
