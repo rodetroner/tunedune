@@ -1,5 +1,9 @@
 #Changelog for tunedune project
 
+## [0.0.16] - 2019.01.10
+- Made input fields on the login screen clear when focused
+- Password text field is masked now
+
 ## [0.0.15] - 2019.01.10
 - Removed list of tracks
 - Removed all actions of all sidebar buttons
