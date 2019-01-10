@@ -1,6 +1,21 @@
 #:kivy 1.10.1
 
-<MainLayout>:
-    orientation: 'horizontal'
-    Sidebar:
-        id: _sidebar
+<LoginScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        TextInput:
+            text: 'Username'
+        TextInput:
+            text: 'Password'
+        Button:
+            text: 'Log in'
+            on_press:
+                root.manager.transition.direction = 'left'
+                root.manager.current = 'main_scr'
+        
+    
+<MainScreen>:
+    BoxLayout:
+        orientation: 'horizontal'
+        Sidebar:
+            id: _sidebar
