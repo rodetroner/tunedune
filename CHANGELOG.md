@@ -1,5 +1,18 @@
 #Changelog for tunedune project
 
+## [0.0.17] - 2019.01.10
+- Added 'Skip login' and 'Log out' buttons
+
+## [0.0.16] - 2019.01.10
+- Made input fields on the login screen clear when focused
+- Password text field is masked now
+
+## [0.0.15] - 2019.01.10
+- Removed list of tracks
+- Removed all actions of all sidebar buttons
+- Introduced screen manager
+- Introduced primitive login screen
+
 ## [0.0.14] - 2019.01.10
 - Added username display on account button in the sidebar
 
