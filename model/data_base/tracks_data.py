@@ -19,7 +19,7 @@ class Tracks_data():
                                 from track where id_track = %s",
                                 (id_track)
                                 ) 
-            return self.cursor.fetchall()
+            return set(self.cursor.fetchall())
         temp = list()
         rvalue = list()
         track_name = '%' + track_name + '%'

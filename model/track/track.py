@@ -136,9 +136,14 @@ def search_track(name = '', authors = list(), tags = list()):
     """Function that based on given arguments will update list (curr_searched_track_list).
     """
     a = Tracks_data().get_tracks(track_name = name, authors = authors, tags = tags)
-    for i in a:
-        curr_searched_track_list.append(Track_Builder_Director.cosntruct(i))
-
+    try:
+        if a = None:
+            raise Empty_result()
+        else:
+            for i in a:
+                curr_searched_track_list.append(Track_Builder_Director.cosntruct(i))
+    
+    
 def fetch_album_tracks(album_tracks = list()):
     """Based on list of id track returns list of Track objects
 

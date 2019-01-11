@@ -1,11 +1,11 @@
-import data_base
+from data_base import Data_Base
 import datetime
 
 class Users_data():
     """Class for handeling operations on data regarding users.
     """
     def __init__(self):
-        self.db = data_base.Data_Base()
+        self.db = Data_Base()
         self.db.connect_to_data_base()
         self.connection = self.db.get_connection()
         self.cursor = self.db.db_cursor
