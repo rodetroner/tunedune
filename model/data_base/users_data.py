@@ -1,19 +1,11 @@
-<<<<<<< HEAD
-from data_base import Data_Base
-=======
 import dbase
->>>>>>> Implement barebones login function
 import datetime
 
 class Users_data():
     """Class for handeling operations on data regarding users.
     """
     def __init__(self):
-<<<<<<< HEAD
-        self.db = Data_Base()
-=======
         self.db = dbase.Data_Base()
->>>>>>> Implement barebones login function
         self.db.connect_to_data_base()
         self.connection = self.db.get_connection()
         self.cursor = self.db.db_cursor
