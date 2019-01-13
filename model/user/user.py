@@ -50,14 +50,13 @@ class User:
     def login(cls, login, password):
         """Class method for handeling login to app.
 
-        Compares password with the one from data base. Starts session.
+        Compares password with the one from data base.
         """
         a = Users_data().get_users(username = login)
         hashed = Users_data().get_password(a[0][0])
         print(hashed[0][0])
         if PasswordHasher().verify(hashed[0][0], password):
-            Users_data().start_user_session(login)
-            return 1
+            return Users_data().start_user_session(login)
         return 0
     
     @classmethod
@@ -80,7 +79,7 @@ class User:
     def logout(session):
         """End session for user.
         """
-        Users_data().end_user_session()
+        Users_data().end_user_session(session)
 
     @classmethod
     def get_users(username = '', email = ''):

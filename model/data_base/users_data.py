@@ -31,7 +31,7 @@ class Users_data():
     def get_banlist(self, login):
         """Returnss list of bans/permisions for user as a list for given login. 
         """
-        self.cursor.execute("select id_ban from bans_to_users where id_user = (select id from users where login = %s)",
+        self.cursor.execute("select id_ban from bans_to_users where id_user = (select id_user from users where login = %s)",
                             (login)
                             )
         return self.cursor.fetchall()
