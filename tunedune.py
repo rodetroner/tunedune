@@ -7,7 +7,6 @@ from mainscreen import MainScreen
 
 kivy.require('1.10.1')
 
-Builder.load_file('sidebar.kv')
 Builder.load_file('loginscreen.kv')
 Builder.load_file('mainscreen.kv')
 

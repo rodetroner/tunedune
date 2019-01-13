@@ -1,5 +1,5 @@
 #:kivy 1.10.1
-#:import loginscreen loginscreen
+#:import mainscreen mainscreen 
 
 <MainScreen>:
     BoxLayout
@@ -26,5 +26,5 @@
             id: _logout
             text: 'Log out'
             on_press:
-                root.parent.parent.manager.transition.direction = 'right'
-                root.parent.parent.manager.current = 'login_scr'
+                root.manager.transition.direction = 'right'
+                root.manager.current = 'login_scr'
