@@ -17,11 +17,7 @@
         Button:
             id: _submit
             text: 'Log in'
-            on_press: root.logInAction(*args)
-        Button:
-            id: _skip
-            text: 'Skip'
             on_press:
+                root.logInAction(*args)
                 root.manager.transition.direction = 'left'
                 root.manager.current = 'main_scr'
- 
