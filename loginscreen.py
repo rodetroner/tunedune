@@ -1,4 +1,8 @@
 import kivy
+import sys
+sys.path.append('./model')
+sys.path.append('./model/data_base')
+import user.user
 from kivy.uix.screenmanager import Screen
 kivy.require('1.10.1')
 
@@ -15,6 +19,8 @@ class LoginScreen(Screen):
         if self.password_input.text == 'Password':
             self.password_input.text = ''
             self.password_input.password = True
-
     
-
+    def logInAction(self, instance, *args):
+        if user.user.User.login(self.login_input.text,
+                                self.password_input.text):
+            print('login_succesful')
