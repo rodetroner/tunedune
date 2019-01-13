@@ -1,7 +1,30 @@
 #:kivy 1.10.1
+#:import loginscreen loginscreen
 
 <MainScreen>:
-    BoxLayout:
-        orientation: 'horizontal'
-        Sidebar:
-            id: _sidebar
+    BoxLayout
+        orientation: 'vertical'
+        Label:
+            id: _app_name
+            text: 'TuneDune'
+        Button:
+            id: _user_button
+            text: 'User'
+        TextInput:
+            id: _search_field
+            text: 'Search...'
+        Button:
+            id: _shop_button
+            text: 'Shop'
+        Button:
+            id: _music_button
+            text: 'My Music'
+        Button:
+            id: _settings_button
+            text: 'Settings'
+        Button:
+            id: _logout
+            text: 'Log out'
+            on_press:
+                root.parent.parent.manager.transition.direction = 'right'
+                root.parent.parent.manager.current = 'login_scr'
