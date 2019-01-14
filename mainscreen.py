@@ -9,3 +9,4 @@ kivy.require('1.10.1')
 class MainScreen(Screen):
     def logOut(self, instance, *args):
         pass
+        

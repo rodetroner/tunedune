@@ -4,6 +4,7 @@ sys.path.append('./model')
 sys.path.append('./model/data_base')
 import user.user
 from kivy.uix.screenmanager import Screen
+from kivy.properties import ObjectProperty
 kivy.require('1.10.1')
 
 class LoginScreen(Screen):
@@ -21,6 +22,6 @@ class LoginScreen(Screen):
             self.password_input.password = True
     
     def logInAction(self, instance, *args):
-        if user.user.User.login(self.login_input.text,
-                                self.password_input.text):
-            print('login_succesful')
+        self.current_session = user.user.User.login(self.login_input.text,
+                                                self.password_input.text)
+        print('login_succesful')
