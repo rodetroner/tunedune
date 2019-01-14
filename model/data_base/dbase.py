@@ -2,7 +2,7 @@ import pymysql
 
 import sys
 
-sys.path.append('../exceptions')
+sys.path.append('../exceptions_d')
 
 from pymysql.connections import Connection
 from pymysql.cursors import Cursor

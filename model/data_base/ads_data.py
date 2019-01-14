@@ -1,7 +1,7 @@
 import dbase
 import sys
 
-sys.path.append('../exceptions')
+sys.path.append('../exceptions_d')
 
 from pymysql.err import MySQLError
 from exceptions import Ex_Handler

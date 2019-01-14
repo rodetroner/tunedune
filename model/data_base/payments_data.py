@@ -2,12 +2,12 @@ import dbase
 import datetime
 import sys
 
-sys.path.append('../exceptions')
+sys.path.append('../exceptions_d')
 
 from pymysql.err import MySQLError
 from exceptions import Ex_Handler
 
-class Paymentss_data():
+class Payments_data():
     """Class for handeling operations on data regarding payments.
     """
     def __init__(self):

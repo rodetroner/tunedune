@@ -2,7 +2,7 @@ import dbase
 import datetime
 import sys
 
-sys.path.append('../exceptions')
+sys.path.append('../exceptions_d')
 
 from dbase import Data_Base
 from pymysql.err import MySQLError
