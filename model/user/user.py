@@ -1,15 +1,23 @@
 import sys
 
 sys.path.append('../data_base')
+sys.path.append('../exceptions')
 
 from argon2 import PasswordHasher
 from users_data import Users_data
+from exceptions import Ex_Handler
 
 class User:
     """Class aacts as fasade for module responsible for interacting with data base. 
     """
     def __init__(self, login):
         a = Users_data().get_users(username = login)
+        try:
+            if len(a) != 3:
+                raise Ex_Data()
+        except (Ex_Data):
+            Ex_Handler.call('Data integrity error.')
+            return
         self.login = a[0][0]
         self.email = a[0][1]
         self.balance = a[0][2]
@@ -50,7 +58,7 @@ class User:
     def login(cls, login, password):
         """Class method for handeling login to app.
 
-        Compares password with the one from data base.
+        Compares password with the one from data base. Starts session.
         """
         a = Users_data().get_users(username = login)
         hashed = Users_data().get_password(a[0][0])
