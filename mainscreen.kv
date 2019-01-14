@@ -26,5 +26,6 @@
             id: _logout
             text: 'Log out'
             on_press:
+                root.logOut(*args)
                 root.manager.transition.direction = 'right'
                 root.manager.current = 'LoginScreen'
