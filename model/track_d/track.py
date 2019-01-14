@@ -1,10 +1,10 @@
 import sys
 
 sys.path.append('../data_base')
-sys.path.append('../user')
-sys.path.append('../transactions')
-sys.path.append('../../mediaplayer')
-sys.path.append('../exceptions')
+sys.path.append('../user_d')
+sys.path.append('../transactions_d')
+sys.path.append('../../mediaplayer_d')
+sys.path.append('../exceptions_d')
 
 from mediaplayer import Player_App
 from tracks_data import Tracks_data

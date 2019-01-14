@@ -2,7 +2,7 @@ import dbase
 import tracks_data
 import sys
 
-sys.path.append('../exceptions')
+sys.path.append('../exceptions_d')
 
 class Albums_data():
     """Class for handeling operations on data regarding albums.

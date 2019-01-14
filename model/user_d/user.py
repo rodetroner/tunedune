@@ -1,7 +1,7 @@
 import sys
 
 sys.path.append('../data_base')
-sys.path.append('../exceptions')
+sys.path.append('../exceptions_d')
 
 from argon2 import PasswordHasher
 from users_data import Users_data

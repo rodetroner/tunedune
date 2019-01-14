@@ -1,6 +1,6 @@
 import sys
 
-sys.path.append('../user')
+sys.path.append('../user_d')
 
 from user import User
 from abc import ABCMeta, abstractmethod

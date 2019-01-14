@@ -1,9 +1,9 @@
 import sys
 
 sys.path.append('../data_base')
-sys.path.append('../user')
-sys.path.append('../../mediaplayer')
-sys.path.append('../exceptions')
+sys.path.append('../user_d')
+sys.path.append('../../mediaplayer_d')
+sys.path.append('../exceptions_d')
 
 from ads_data import Ads_data
 from user import User
