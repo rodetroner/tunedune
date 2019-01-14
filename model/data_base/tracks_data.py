@@ -1,4 +1,4 @@
-import data_base
+import dbase
 import sys
 
 sys.path.append('../exceptions')

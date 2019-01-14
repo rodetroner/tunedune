@@ -1,9 +1,10 @@
+import dbase
 import datetime
 import sys
 
 sys.path.append('../exceptions')
 
-from data_base import Data_Base
+from dbase import Data_Base
 from pymysql.err import MySQLError
 from exceptions import Ex_Handler
 
@@ -11,7 +12,7 @@ class Users_data():
     """Class for handeling operations on data regarding users.
     """
     def __init__(self):
-        self.db = Data_Base()
+        self.db = dbase.Data_Base()
         self.db.connect_to_data_base()
         self.connection = self.db.get_connection()
         self.cursor = self.db.db_cursor
