@@ -3,10 +3,12 @@ import sys
 sys.path.append('../data_base')
 sys.path.append('../user')
 sys.path.append('../track')
+sys.path.append('../exceptions')
 
 from albums_data import Albums_data
 from track import *
 from user import User
+from exceptions import Ex_Handler
 
 """List of schearched albums.
 """
@@ -45,6 +47,12 @@ class Album_Builder_Director:
     """
     @classmethod
     def cosntruct(cls, data = list()):
+        try:
+            if len(data) != 2:
+                raise Ex_Data()
+        except (Ex_Data):
+            Ex_Handler.call('Data integriti error')
+            return
         return (Album_Builder()
                 .set_data(data)
                 .set_authors()
@@ -101,7 +109,11 @@ def search_album(name = '', owner = None, authors = list(), tags = list()):
     """
     a = Albums_data().get_albums(name = name, owner = owner, authors = authors, tags = tags)
     for i in a:
-        curr_searched_album_list.append(Album_Builder_Director.cosntruct(i))  
+        temp = Album_Builder_Director.cosntruct(i)
+        if temp == None:
+            pass
+        else:
+            curr_searched_album_list.append(temp)  
     
 #search_album()
 #print(curr_searched_album_list)
