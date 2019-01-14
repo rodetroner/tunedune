@@ -1,18 +1,19 @@
 import kivy
+from kivy.app import App
+from kivy.lang import Builder
+from kivy.uix.screenmanager import ScreenManager, Screen
+
 kivy.require('1.10.1')
 
-from kivy.app import App
-from kivy.uix.label import Label
-from kivy.uix.button import Button
-from kivy.uix.stacklayout import StackLayout
-from kivy.uix.anchorlayout import AnchorLayout
+Builder.load_file('loginscreen.kv')
+Builder.load_file('mainscreen.kv')
 
-class MainLayout(AnchorLayout):
+class MyScreenManager(ScreenManager):
     pass
 
 class TuneDuneApp(App):
     def build(self):
-        return MainLayout()
+        return MyScreenManager()
 
 if __name__ == '__main__':
     TuneDuneApp().run()

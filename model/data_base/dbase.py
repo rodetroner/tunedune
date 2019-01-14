@@ -1,4 +1,5 @@
 import pymysql
+
 import sys
 
 sys.path.append('../exceptions')
@@ -6,6 +7,7 @@ sys.path.append('../exceptions')
 from pymysql.connections import Connection
 from pymysql.cursors import Cursor
 from pymysql.err import DatabaseError
+
 from pymysql.err import MySQLError
 from exceptions import Ex_Handler
 
@@ -55,6 +57,7 @@ class Data_Base():
     def connect_to_data_base(self):
         """Initializer of DB connection.
         """
+
         try:
             Data_Base.DB_instance.connect_to_data_base()
         except (MySQLError):
