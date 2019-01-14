@@ -1,10 +1,4 @@
 import data_base
-import sys
-
-sys.path.append('../exceptions')
-
-from pymysql.err import MySQLError
-from exceptions import Ex_Handler
 
 class Tracks_data():
     """Class for handeling operations on data regarding tracks.
@@ -21,26 +15,18 @@ class Tracks_data():
         May be called with list of authors/tags searched, partial name.
         """
         if id_track != '':
-            try:
-                self.cursor.execute("select id_track, track_name, durration, track_price, path, track_status, cover_path \
-                                    from track where id_track = %s",
-                                    (id_track)
-                                    )
-            except (MySQLError):
-                Ex_Handler.call('Data base error')
-            else:
-                return set(self.cursor.fetchall())
+            self.cursor.execute("select id_track, track_name, durration, track_price, path, track_status, cover_path \
+                                from track where id_track = %s",
+                                (id_track)
+                                ) 
+            return set(self.cursor.fetchall())
         temp = list()
         rvalue = list()
         track_name = '%' + track_name + '%'
         if authors !=  []:
-            try:
-                self.cursor.execute("select id_track, track_name, durration, track_price, path, track_status, cover_path \
-                                    from track where track_name like %s",
-                                    ('%' + track_name + '%'))
-            except (MySQLError):
-                Ex_Handler.call('Data base error')
-                return
+            self.cursor.execute("select id_track, track_name, durration, track_price, path, track_status, cover_path \
+                                from track where track_name like %s",
+                                ('%' + track_name + '%'))
             t = self.cursor.fetchall()
             for o in t:
                 for i in authors:
@@ -53,15 +39,11 @@ class Tracks_data():
                 else:
                     temp.append(o)
         else:
-            try:
-                self.cursor.execute("select id_track, track_name, durration, track_price, path, track_status, cover_path \
-                                    from track where track_name like %s",
-                                    ('%' + track_name + '%')
-                                    )
-            except (MySQLError):
-                Ex_Handler.call('Data base error')
-            else:
-                temp = self.cursor.fetchall()
+            self.cursor.execute("select id_track, track_name, durration, track_price, path, track_status, cover_path \
+                                from track where track_name like %s",
+                                ('%' + track_name + '%')
+                                )
+            temp = self.cursor.fetchall()
         if tags != []:
             for i in temp:
                 for j in tags:
@@ -79,40 +61,24 @@ class Tracks_data():
         """Returns info about authors of track as a list.
         """
         if id_track:
-            try:
-                self.cursor.execute("select author_name, id_author, id_user from author\
-                                    where id_author in (select id_author from authors_to_tracks where id_track = %s)",
-                                    (id_track)
-                                    )
-            except (MySQLError):
-                Ex_Handler.call('Data base error')
-                return
+            self.cursor.execute("select author_name, id_author, id_user from author\
+                                where id_author in (select id_author from authors_to_tracks where id_track = %s)",
+                                (id_track)
+                                )
         else:
-            try:
-                self.cursor.execute("select author_name, id_author, id_user from author")
-            except (MySQLError):
-                Ex_Handler.call('Data base error')
-                return
+            self.cursor.execute("select author_name, id_author, id_user from author")
         return self.cursor.fetchall()
 
     def get_tags(self, id_track = None):
         """Returns info about tags of track as a list.
         """
         if id_track:
-            try:
-                self.cursor.execute("select tag_name, id_tag from tags where id_tag in (select id_tag from tags_to_tracks\
-                                    where id_track = %s)",
-                                    (id_track)
-                                    )
-            except (MySQLError):
-                Ex_Handler.call('Data base error')
-                return    
+            self.cursor.execute("select tag_name, id_tag from tags where id_tag in (select id_tag from tags_to_tracks\
+                                where id_track = %s)",
+                                (id_track)
+                                )
         else:
-            try:
-                self.cursor.execute("select tag_name, id_tag from tags")
-            except (MySQLError):
-                Ex_Handler.call('Data base error')
-                return
+            self.cursor.execute("select tag_name, id_tag from tags")
         return self.cursor.fetchall()
     
     def add_track(self, track_name, durration, track_price, path, track_status, cover_path):
@@ -121,17 +87,13 @@ class Tracks_data():
         if track_name == '' or durration == '' or track_price == '' or path == '' or track_status == '':
             return 0
         else:
-            try:
-                self.connection.begin()
-                self.cursor.execute("INSERT INTO track (track_name, durration, track_price, path, track_status, cover_path)\
-                                    VALUES (%s, %s, %s, %s, %s)",
-                                    (track_name, durration, track_price, path, track_status, cover_path)
-                                    )
-            except (MySQLError):
-                Ex_Handler.call('Data base error')
-            else:
-                self.connection.commit()
-                return 1
+            self.connection.begin()
+            self.cursor.execute("INSERT INTO track (track_name, durration, track_price, path, track_status, cover_path)\
+                                VALUES (%s, %s, %s, %s, %s)",
+                                (track_name, durration, track_price, path, track_status, cover_path)
+                                )
+            self.connection.commit()
+            return 1
 
     def alter_track(self, id_track, track_name= '', durration= '', track_price= '', path= '', track_status = '',cover_path = ''):
         """Changes data in database, regarding track.
@@ -139,25 +101,21 @@ class Tracks_data():
         if track_name == '' and durration == '' and track_price == '' and path == '' and track_status == '':
             return 0
         else:
-            try:
-                self.connection.begin()
-                if track_name != '':
-                    self.cursor.execute("UPDATE track SET track_name = %s WHERE id_track = %s;", (track_name, id_track))
-                if durration != '':
-                    self.cursor.execute("UPDATE track SET durration = %s WHERE id_track = %s;", (durration, id_track))
-                if track_price != '':
-                    self.cursor.execute("UPDATE track SET track_price = %s WHERE id_track = %s;", (track_price, id_track))
-                if path != '':
-                    self.cursor.execute("UPDATE track SET path = %s WHERE id_track = %s;", (path, id_track))
-                if track_status != '':
-                    self.cursor.execute("UPDATE track SET track_status = %s WHERE id_track = %s;", (track_status, id_track))
-                if cover_path != '':
-                    self.cursor.execute("UPDATE track SET cover_path = %s WHERE id_track = %s;", (cover_path, id_track))
-            except (MySQLError):
-                Ex_Handler.call('Data base error')
-            else:
-                self.connection.commit()
-                return 1
+            self.connection.begin()
+            if track_name != '':
+                self.cursor.execute("UPDATE track SET track_name = %s WHERE id_track = %s;", (track_name, id_track))
+            if durration != '':
+                self.cursor.execute("UPDATE track SET durration = %s WHERE id_track = %s;", (durration, id_track))
+            if track_price != '':
+                self.cursor.execute("UPDATE track SET track_price = %s WHERE id_track = %s;", (track_price, id_track))
+            if path != '':
+                self.cursor.execute("UPDATE track SET path = %s WHERE id_track = %s;", (path, id_track))
+            if track_status != '':
+                self.cursor.execute("UPDATE track SET track_status = %s WHERE id_track = %s;", (track_status, id_track))
+            if cover_path != '':
+                self.cursor.execute("UPDATE track SET cover_path = %s WHERE id_track = %s;", (cover_path, id_track))
+            self.connection.commit()
+        return 1
     
     def delete_track(self, id_track):
         """Removes data from data base of track with provided id.
@@ -165,14 +123,10 @@ class Tracks_data():
         if not id_track:
             return 0
         else:
-            try:
-                self.connection.begin()
-                self.cursor.execute("DELETE FROM track WHERE id_track = %s", (id_track))
-            except (MySQLError):
-                Ex_Handler.call('Data base error')
-            else:
-                self.connection.commit()
-                return 1
+            self.connection.begin()
+            self.cursor.execute("DELETE FROM track WHERE id_track = %s", (id_track))
+            self.connection.commit()
+        return 1
 
     def check_track_for_buy(self, track_id, user_login):
         """Returns 1 if user does not have track and 0 if they do.
@@ -188,16 +142,12 @@ class Tracks_data():
     def buy_track(self, track, user, time):
         """Insert into data base info about user having access to track.
         """
-        try:
-            self.connection.begin()
-            self.cursor.execute("INSERT INTO users_to_tracks (id_track, id_user, expiration_date)\
-                                VALUES (%s, (select id_user from users where login = %s), %s)",
-                                (id_track, user, time)
-                                )
-        except (MySQLError):
-            Ex_Handler.call('Data base error')
-        else:
-            self.connection.commit()
+        self.connection.begin()
+        self.cursor.execute("INSERT INTO users_to_tracks (id_track, id_user, expiration_date)\
+                            VALUES (%s, (select id_user from users where login = %s), %s)",
+                            (id_track, user, time)
+                            )
+        self.connection.commit()
         
 '''#uncoment to test (id may not be right for test)
 a = Tracks_data()

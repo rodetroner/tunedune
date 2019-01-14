@@ -4,13 +4,11 @@ sys.path.append('../data_base')
 sys.path.append('../user')
 sys.path.append('../transactions')
 sys.path.append('../../mediaplayer')
-sys.path.append('../exceptions')
 
 from mediaplayer import Player_App
 from tracks_data import Tracks_data
 from abc import ABCMeta, abstractmethod
 from user import User
-from exceptions import Ex_Handler
 
 """List of tracks currently fetched from data base, updated by functions in module.
 """
@@ -70,12 +68,6 @@ class Track_Builder_Director:
 
         List should come from module handeling data base.
         """
-        try:
-            if len(data) != 7:
-                raise Ex_Data()
-        except (Ex_Data):
-            Ex_Handler.call('Data integrity error.')
-            return
         return Track_Builder().set_data(data).set_authors().set_tags().get_final()
     
 
@@ -144,8 +136,12 @@ def search_track(name = '', authors = list(), tags = list()):
     """Function that based on given arguments will update list (curr_searched_track_list).
     """
     a = Tracks_data().get_tracks(track_name = name, authors = authors, tags = tags)
-    for i in a:
-        curr_searched_track_list.append(Track_Builder_Director.cosntruct(i))
+    try:
+        if a = None:
+            raise Empty_result()
+        else:
+            for i in a:
+                curr_searched_track_list.append(Track_Builder_Director.cosntruct(i))
     
     
 def fetch_album_tracks(album_tracks = list()):
@@ -158,11 +154,7 @@ def fetch_album_tracks(album_tracks = list()):
     for i in album_tracks:
         tmp.append(Tracks_data().get_tracks(id_track = i[0][0]))
     for i in tmp:
-        temp = Track_Builder_Director.cosntruct(i[0])
-        if temp == None:
-            pass
-        else:
-            rvalue.append(temp)
+        rvalue.append(Track_Builder_Director.cosntruct(i[0]))
     return rvalue
     
 #uncomment to test   

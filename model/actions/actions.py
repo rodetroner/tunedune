@@ -3,12 +3,10 @@ import sys
 sys.path.append('../data_base')
 sys.path.append('../user')
 sys.path.append('../../mediaplayer')
-sys.path.append('../exceptions')
 
 from ads_data import Ads_data
 from user import User
 from mediaplayer import Player_App
-from exceptions import Ex_Handler
 
 """Global lists for storing ads.
 """
@@ -21,12 +19,6 @@ class Promotional_action:
     def __init__(self, data):
         """Argument is a iterable structure, as it is fetched from database like this.
         """
-        try:
-            if len(data) != 5:
-                raise Ex_Data()
-        except (Ex_Data):
-            Ex_Handler.call('Data integrity error')
-            return
         self.name = data[0]
         self.path = data[1]
         self.reward = data[2]
