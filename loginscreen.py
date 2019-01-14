@@ -4,7 +4,6 @@ sys.path.append('./model')
 sys.path.append('./model/data_base')
 import user.user
 from kivy.uix.screenmanager import Screen
-from kivy.properties import ObjectProperty
 kivy.require('1.10.1')
 
 class LoginScreen(Screen):
