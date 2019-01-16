@@ -119,7 +119,7 @@ class Player_App(Screen):
         LB = BoxLayout(orientation = 'vertical')
         LB2 = BoxLayout(orientation = 'horizontal')
         LB2.add_widget(My_Button1(lambda i: ms("Tracks"), 1, text = '<'))
-        LB2.add_widget(My_Button1(lambda i: ms(''), 1, text = '>'))
+        LB2.add_widget(My_Button1(lambda i: ms('Playlist'), 1, text = '>'))
         LB2.size_hint = (1, 0.2)
         LB2.height = 20
         LB.add_widget(LB2)
