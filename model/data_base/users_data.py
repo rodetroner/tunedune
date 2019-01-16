@@ -50,7 +50,7 @@ class Users_data():
     def get_banlist(self, login):
         """Returnss list of bans/permisions for user as a list for given login. 
         """
-        self.cursor.execute("select id_ban from bans_to_users where id_user = (select id_user from users where login = %s)",
+        self.cursor.execute("select ban_name from bans join bans_to_users on bans.id_ban = bans_to_users.id_ban where id_user = (select id_user from users where login = %s)",
                             (login)
                             )
         return self.cursor.fetchall()
@@ -65,14 +65,15 @@ class Users_data():
         else:
             return self.cursor.fetchall()
 
-    def add_ban(self, id_ban, login):
+    def add_ban(self, ban, login):
         """Adds a ban to user.
         """
         try:
             self.connection.begin()
             self.cursor.execute("INSERT INTO bans_to_users (id_user, id_ban)\
-                                VALUES ((select id_user from users where login = %s), %s)",
-                                (login, id_ban)
+                                VALUES ((select id_user from users where login = %s),\
+                                (select id_ban from bans where ban_name = %s))",
+                                (login, ban)
                                 )
         except (MySQLError):
             Ex_Handler.call('Data base error')
@@ -85,7 +86,7 @@ class Users_data():
         try:
             self.connection.begin()
             self.cursor.execute("DELETE FROM bans_to_users where id_user = (select id_user from users where login = %s) \
-                                and id_ban = %s", (login, id_ban))
+                                and id_ban = (select id_ban from bans where ban_name = %s)", (login, id_ban))
         except (MySQLError):
             Ex_Handler.call('Data base error')
         else:

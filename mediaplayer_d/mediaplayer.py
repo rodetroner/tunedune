@@ -103,10 +103,10 @@ class Player_App(Screen):
     """
     player_pool = list((Player_Window("", ""), Player_Window("", "")))
     
-    def __init__(self, ms,**kwargs):
+    def __init__(self, ms, name, **kwargs):
         #resources.resource_add_path("path to folder where stored")
         #uncomment and fill after fetching files from server is done!!!!!!
-        super(Player_App, self).__init__(name = 'Player')
+        super(Player_App, self).__init__(name = name)
         '''try:
             if path == '':
                 raise PA_Exception()

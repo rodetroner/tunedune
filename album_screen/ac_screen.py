@@ -8,26 +8,32 @@ from kivy.uix.button import Button
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.scrollview import ScrollView
 from kivy.core.window import Window
+from kivy.uix.label import Label
 import sys
 
 sys.path.append('../mediaplayer_d')
-sys.path.append('../model/track_d')
+sys.path.append('../model/actions_d')
 sys.path.append('../model/data_base')
 sys.path.append('../model/exceptions_d')
 sys.path.append('../model/transactions_d')
 sys.path.append('../model')
 sys.path.append('../model/user_d')
+
 kivy.require('1.10.1')
-Builder.load_file('t_screen.kv')
+#Builder.load_file('../tunedune/actions_screen/ac_screen.kv')
 
 import mediaplayer
-from track import *
+import actions
+
+#print(list_of_schearched_ads)
 
 class MyLabelWithBackground(Label):
     pass
 
 class MyLabelWithBackground1(Label):
     pass
+
+ms = None
 
 class My_Button1(Button, ButtonBehavior):
     def __init__(self, function, arg, flag, **kwargs):
@@ -40,46 +46,44 @@ class My_Button1(Button, ButtonBehavior):
         self.function(self.arg)
         if self.flag == 1:
             #ms.transition = 'right'
-            ms.current = "Player"
+            ms.current = "Player_ads"
 
-class T_Screen(Screen):
-    def __init__(self, set_ms_curr):
-        super(T_Screen, self).__init__(name = 'Tracks')
+class Ac_Screen(Screen):
+    def __init__(self, set_ms_curr, player_screen):
+        super(Ac_Screen, self).__init__(name = 'Ads')
         i = 0
         LB = BoxLayout(orientation = 'vertical')
         LB2 = BoxLayout(orientation = 'horizontal')
         LB2.add_widget(My_Button1(lambda i: set_ms_curr(''), 1, 0, text = '<'))
-        LB2.add_widget(My_Button1(lambda i: set_ms_curr("Player"), 1, 0, text = '>'))
+        LB2.add_widget(My_Button1(lambda i: set_ms_curr("Player_ads"), 1, 0, text = '>'))
         LB.add_widget(LB2)
-        LB.add_widget(Label(text = 'Tracks searched'))
+        LB.add_widget(Label(text = 'Ads searched'))
         
-        while i < len(curr_searched_track_list):
+        while i < len(actions.list_of_schearched_ads):
             temp = BoxLayout(orientation = 'horizontal')
             temp.size_hint = (1, 1)
             temp.height = 20
-            l = curr_searched_track_list[i].get_track_name() + "by: " + curr_searched_track_list[i].get_authors()[0][0]
+            l = actions.list_of_schearched_ads[i].name + " by: " + actions.list_of_schearched_ads[i].provider
             if i % 2 == 0:
                 lab = MyLabelWithBackground(text = l)
             else:
                 lab = MyLabelWithBackground1(text = l)
             temp.add_widget(lab)
-            btn1 = My_Button1(lambda i: curr_searched_track_list[i].buy(User('test'), datetime.datetime.now()), i, 0, text = 'Buy: ' + str(curr_searched_track_list[i].get_track_price()))
+            btn1 = My_Button1(lambda i: actions.list_of_schearched_ads[i].run_ad(player_screen), i, 1)
             temp.add_widget(btn1)
-            btn2 = My_Button1(lambda i:  curr_searched_track_list[i].play_track(a), i, 1, text = 'Play')
-            temp.add_widget(btn2)
             i += 1
             LB.add_widget(temp)
         sv = ScrollView(size_hint=(1, None), size=(Window.width, Window.height))
         sv.add_widget(LB)
         self.add_widget(sv)
-"""        
+'''
 class MyScreenManager(ScreenManager):
     def __init__(self):
         super(MyScreenManager, self).__init__()
 
     def add(self):
         self.add_widget(t)
-        self.add_widget(a)
+        self.add_widget(ad)
 
     def set_ms_curr(self, s):
         if s != '': 
@@ -89,10 +93,10 @@ class TuneDuneApp(App):
     def build(self):
         return ms
 
-search_track()
+search_ads()
 ms = MyScreenManager()
-a = Player_App(ms.set_ms_curr)
-t = T_Screen()
-screens = [a, t]
+ad = Player_App(ms.set_ms_curr, 'Player_ads')
+t = Ac_Screen(ms.set_ms_curr, ad)
 ms.add()
-TuneDuneApp().run()"""
+TuneDuneApp().run()
+'''

@@ -47,15 +47,23 @@ class My_Button1(Button, ButtonBehavior):
 class Pl_Screen(Screen):
     def __init__(self, set_ms_curr, a):
         super(Pl_Screen, self).__init__(name = 'Playlist')
+        print('zzzzazzsdfg')
         i = 0
         self.set_ms_curr = set_ms_curr
         self.a = a
-
+        self.sv = ScrollView(size_hint=(1, None), size=(Window.width, Window.height))    
+        LB2 = BoxLayout(orientation = 'horizontal')
+        LB2.add_widget(My_Button1(lambda i: self.set_ms_curr('Albums'), 1, 0, text = '<'))
+        LB2.add_widget(My_Button1(lambda i: self.set_ms_curr("Player"), 1, 0, text = '>'))
+        self.sv.add_widget(LB2)
+        self.add_widget(self.sv)
+        
     def reset(self, album):
         print('plplpl')
         self.list_of_track = album.get_tracks()
         self.clear_widgets()
         LB = BoxLayout(orientation = 'vertical')
+        self.sv = ScrollView(size_hint=(1, None), size=(Window.width, Window.height))    
         LB2 = BoxLayout(orientation = 'horizontal')
         LB2.add_widget(My_Button1(lambda i: self.set_ms_curr('Albums'), 1, 0, text = '<'))
         LB2.add_widget(My_Button1(lambda i: self.set_ms_curr("Player"), 1, 0, text = '>'))
@@ -78,9 +86,9 @@ class Pl_Screen(Screen):
             temp.add_widget(btn2)
             i += 1
             LB.add_widget(temp)
-        sv = ScrollView(size_hint=(1, None), size=(Window.width, Window.height))
-        sv.add_widget(LB)
-        self.add_widget(sv)
+        self.sv.add_widget(LB)
+        self.add_widget(self.sv)
+        
 
 """
 class MyScreenManager(ScreenManager):

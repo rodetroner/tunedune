@@ -59,13 +59,13 @@ class Image_advertisment(Promotional_action):
     """Clase implementing run add for specyfic type of ad.
     """
     def run_ad(self):
-        Player_App('', self.path) #to do: consider adding dummy path for mediaplayer
+        a.p.reset_player('', self.path) #to do: consider adding dummy path for mediaplayer
 
 class Sound_advertisment(Promotional_action):
     """Clase implementing run add for specyfic type of ad.
     """
-    def run_ad(self):
-        Player_App(self.path, '')
+    def run_ad(self, a):
+        a.p.reset_player(self.path, '')
 
 class Ad_factory:
     """Factory creating specyfic classes for specyfic ads and adds them to searched list.
