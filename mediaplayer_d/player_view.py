@@ -13,6 +13,15 @@ from kivy.uix.slider import Slider
 from kivy.clock import Clock
 import kivy.resources as resources
 
+class My_Button1(Button, ButtonBehavior):
+    def __init__(self, function, arg, **kwargs):
+        super(My_Button1, self).__init__(**kwargs)
+        self.arg = arg
+        self.function = function
+
+    def on_press(self):
+        self.function(self.arg)
+            
 class Display_area(AsyncImage):
     """A class for background/cover image of mediaplayer
 
@@ -20,7 +29,7 @@ class Display_area(AsyncImage):
     """
     def __init__(self, source):
         if resources.resource_find(source) == None:
-            super(Display_area, self).__init__(source = 'default_bg_image.png')
+            super(Display_area, self).__init__(source = '../mediaplayer_d/default_bg_image.png')
         else:
             super(Display_area, self).__init__(source = source)
 
@@ -28,7 +37,7 @@ class Display_area(AsyncImage):
         """Allows to change image in widget.
         """
         if resources.resource_find(source) == None:
-            self.source = 'default_bg_image.png'
+            self.source = '../mediaplayer_d/default_bg_image.png'
         else:
             self.source = source
 

@@ -5,30 +5,30 @@ sys.path.append('../exceptions_d')
 
 from argon2 import PasswordHasher
 from users_data import Users_data
-from exceptions import Ex_Handler
+from exceptions import *
 
 class User:
     """Class aacts as fasade for module responsible for interacting with data base. 
     """
     def __init__(self, login):
-        a = Users_data().get_users(username = login)
+        a = Users_data().get_users(username = login)[0]
         try:
             if len(a) != 3:
                 raise Ex_Data()
         except (Ex_Data):
             Ex_Handler.call('Data integrity error.')
             return
-        self.login = a[0][0]
-        self.email = a[0][1]
-        self.balance = a[0][2]
-        self.banlist = Users_data().get_banlist(self.login)
+        self.username = a[0]
+        self.email = a[1]
+        self.balance = a[2]
+        self.banlist = Users_data().get_banlist(self.username)
 
     def alter_user(self, login = '', email = '', password = '', balance = 0):
         if balance > self.balance:
             return 0
-        Users_data().alter_user(self.login,
-                                login = login,
-                                email = emai,
+        Users_data().alter_user(self.username,
+                                username = login,
+                                email = email,
                                 password = password,
                                 balance_change = balance)
         return 1
@@ -62,7 +62,7 @@ class User:
         """
         a = Users_data().get_users(username = login)
         hashed = Users_data().get_password(a[0][0])
-        print(hashed[0][0])
+        #print(hashed[0][0])
         if PasswordHasher().verify(hashed[0][0], password):
             return Users_data().start_user_session(login)
         return 0
@@ -95,3 +95,4 @@ class User:
         """
         return Users_data().get_users(username, email)
 
+#User.regiester('test', 'test', 'test')

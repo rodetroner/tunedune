@@ -4,6 +4,9 @@ import sys
 
 sys.path.append('../exceptions_d')
 
+from pymysql.err import MySQLError
+from exceptions import *
+
 class Albums_data():
     """Class for handeling operations on data regarding albums.
     """

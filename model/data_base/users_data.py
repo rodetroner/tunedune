@@ -6,7 +6,7 @@ sys.path.append('../exceptions_d')
 
 from dbase import Data_Base
 from pymysql.err import MySQLError
-from exceptions import Ex_Handler
+from exceptions import *
 
 class Users_data():
     """Class for handeling operations on data regarding users.

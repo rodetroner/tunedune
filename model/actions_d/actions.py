@@ -8,7 +8,7 @@ sys.path.append('../exceptions_d')
 from ads_data import Ads_data
 from user import User
 from mediaplayer import Player_App
-from exceptions import Ex_Handler
+from exceptions import *
 
 """Global lists for storing ads.
 """

@@ -4,13 +4,13 @@ import sys
 sys.path.append('../exceptions_d')
 
 from pymysql.err import MySQLError
-from exceptions import Ex_Handler
+from exceptions import *
 
 class Tracks_data():
     """Class for handeling operations on data regarding tracks.
     """
     def __init__(self):
-        self.db = data_base.Data_Base()
+        self.db = dbase.Data_Base()
         self.db.connect_to_data_base()
         self.connection = self.db.get_connection()
         self.cursor = self.db.db_cursor
@@ -177,8 +177,8 @@ class Tracks_data():
     def check_track_for_buy(self, track_id, user_login):
         """Returns 1 if user does not have track and 0 if they do.
         """
-        if self.cursor.execute("select * from users_to_tracks join users on users.id_user = users_to_track.id_user\
-                               where id_track = %s and user_login = %s",
+        if self.cursor.execute("select id_track, login from users_to_tracks join users on users.id_user = users_to_tracks.id_user\
+                               where id_track = %s and login = %s",
                                (track_id, user_login)
                                ):
             return 0
@@ -192,7 +192,7 @@ class Tracks_data():
             self.connection.begin()
             self.cursor.execute("INSERT INTO users_to_tracks (id_track, id_user, expiration_date)\
                                 VALUES (%s, (select id_user from users where login = %s), %s)",
-                                (id_track, user, time)
+                                (track, user, time)
                                 )
         except (MySQLError):
             Ex_Handler.call('Data base error')

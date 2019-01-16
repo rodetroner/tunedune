@@ -8,7 +8,7 @@ sys.path.append('../exceptions_d')
 from albums_data import Albums_data
 from track import *
 from user import User
-from exceptions import Ex_Handler
+from exceptions import *
 
 """List of schearched albums.
 """
@@ -95,11 +95,11 @@ class Album:
         total_price = 0
         a = Tracks_data()
         for i in self._tracks:
-            if a.check_track_for_buy(i.get_track_id, user.login):
+            if a.check_track_for_buy(i.get_track_id, user.username):
                 total_price += i.get_track_price()
         if Payment.update_balance(user, total_price):
             for j in self._tracks:
-                a.buy_track(j.get_track_id(), user.login, time)
+                a.buy_track(j.get_track_id(), user.username, time)
             return 1
         else:
             return 0

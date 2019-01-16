@@ -5,7 +5,7 @@ import sys
 sys.path.append('../exceptions_d')
 
 from pymysql.err import MySQLError
-from exceptions import Ex_Handler
+from exceptions import *
 
 class Payments_data():
     """Class for handeling operations on data regarding payments.

@@ -1,3 +1,4 @@
+import threading
 import sys
 
 sys.path.append('../data_base')
@@ -5,12 +6,14 @@ sys.path.append('../user_d')
 sys.path.append('../transactions_d')
 sys.path.append('../../mediaplayer_d')
 sys.path.append('../exceptions_d')
+sys.path.append('../transactions_d')
 
 from mediaplayer import Player_App
 from tracks_data import Tracks_data
 from abc import ABCMeta, abstractmethod
 from user import User
-from exceptions import Ex_Handler
+from exceptions import *
+from transactions import *
 
 """List of tracks currently fetched from data base, updated by functions in module.
 """
@@ -126,17 +129,25 @@ class Track:
     def buy(self, user, time):
         total_price = 0
         a = Tracks_data()
-        if a.check_track_for_buy(self._id_track, user.login):
-            total_price += i.get_track_price()
-        if Payment.update_balance(user, total_price):
-            a.buy_track(j.get_track_id(), user.login, time)
+        try:
+            q =  a.check_track_for_buy(self._id_track, user.username)
+            if q:
+                total_price += float(self.get_track_price())
+            else:
+                raise Buy_error
+        except Buy_error:           
+            Ex_Handler.call('You already have it, if you want more just buy the ones above and below')
+            return 0
+        if Payment().update_balance(user, total_price):
+            a.buy_track(self.get_track_id(), user.username, time)
+            Ex_Handler.call("Congratulations, it's a track!")
             return 1
         else:
             return 0
         
-    def play_track(self):
-        Player_App(self._path, self._cover_path)
-    
+    def play_track(self, a):
+        a.p.reset_player(self._path, self._cover_path)
+        
     def add_to_album(self, album):
         album.add_track(self)
 
@@ -144,6 +155,8 @@ def search_track(name = '', authors = list(), tags = list()):
     """Function that based on given arguments will update list (curr_searched_track_list).
     """
     a = Tracks_data().get_tracks(track_name = name, authors = authors, tags = tags)
+    #curr_searched_track_list = []
+    print(1)
     for i in a:
         curr_searched_track_list.append(Track_Builder_Director.cosntruct(i))
     
@@ -168,3 +181,5 @@ def fetch_album_tracks(album_tracks = list()):
 #uncomment to test   
 #search_track()
 #print(curr_searched_track_list[0].get_track_name())
+
+#curr_searched_track_list[7].play_track()
