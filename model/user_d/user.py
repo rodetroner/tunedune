@@ -5,7 +5,7 @@ sys.path.append('../exceptions_d')
 
 from argon2 import PasswordHasher
 from users_data import Users_data
-from exceptions import Ex_Handler
+from exceptions_d.exceptions import Ex_Handler
 
 class User:
     """Class aacts as fasade for module responsible for interacting with data base. 

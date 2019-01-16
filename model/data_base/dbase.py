@@ -9,7 +9,7 @@ from pymysql.cursors import Cursor
 from pymysql.err import DatabaseError
 
 from pymysql.err import MySQLError
-from exceptions import Ex_Handler
+from exceptions_d.exceptions import Ex_Handler
 
 class Data_Base():
     """Singleton class for storing connector to DB.
