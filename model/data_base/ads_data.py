@@ -4,13 +4,13 @@ import sys
 sys.path.append('../exceptions_d')
 
 from pymysql.err import MySQLError
-from exceptions import Ex_Handler
+from exceptions import *
 
 class Ads_data():
     """Class for handeling operations on data regarding ads.
     """
     def __init__(self):
-        self.db = data_base.Data_Base()
+        self.db = dbase.Data_Base()
         self.db.connect_to_data_base()
         self.connection = self.db.get_connection()
         self.cursor = self.db.db_cursor

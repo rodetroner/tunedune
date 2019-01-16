@@ -7,6 +7,11 @@ from kivy.uix.label import Label
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.button import Button
 
+class Buy_error(Exception):
+    """For shop issues.
+    """
+    pass
+    
 class PA_Exception(Exception):
     """For Player_App exceptions.
     """

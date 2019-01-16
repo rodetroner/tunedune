@@ -1,11 +1,13 @@
 import kivy
 import sys
 sys.path.append('./model')
-sys.path.append('./mediaplayer_d')
+sys.path.append('./model/data_base')
 sys.path.append('./model/exceptions_d')
+sys.path.append('./mediaplayer_d')
 sys.path.append('./model/user_d')
 import user_d.user
 import track_d.track
+
 from kivy.uix.screenmanager import Screen
 
 kivy.require('1.10.1')

@@ -8,7 +8,7 @@ sys.path.append('../exceptions_d')
 from albums_data import Albums_data
 from track import *
 from user import User
-from exceptions import Ex_Handler
+from exceptions import *
 
 """List of schearched albums.
 """
@@ -48,7 +48,7 @@ class Album_Builder_Director:
     @classmethod
     def cosntruct(cls, data = list()):
         try:
-            if len(data) != 2:
+            if len(data) != 3:
                 raise Ex_Data()
         except (Ex_Data):
             Ex_Handler.call('Data integriti error')
@@ -81,6 +81,9 @@ class Album:
     def delete_track(self, track):
         self._tracks.remove(track)
 
+    def get_tracks(self):
+        return self._tracks
+    
     def get_next_track(track_number = None):
         if track_number:
             self.curr_track = track_number
@@ -90,16 +93,21 @@ class Album:
             return 0
         else:
             return self._track[self.curr_track]
-            
+
+    def get_album_name(self):
+        return self._album_name
+    
     def buy(self, user, time):
         total_price = 0
         a = Tracks_data()
+        tmp = list()
         for i in self._tracks:
-            if a.check_track_for_buy(i.get_track_id, user.login):
+            if a.check_track_for_buy(i.get_track_id(), user.username):
                 total_price += i.get_track_price()
-        if Payment.update_balance(user, total_price):
-            for j in self._tracks:
-                a.buy_track(j.get_track_id(), user.login, time)
+                tmp.append(i)
+        if Payment().update_balance(user, total_price):
+            for j in tmp:
+                a.buy_track(j.get_track_id(), user.username, time)
             return 1
         else:
             return 0
@@ -109,11 +117,13 @@ def search_album(name = '', owner = None, authors = list(), tags = list()):
     """
     a = Albums_data().get_albums(name = name, owner = owner, authors = authors, tags = tags)
     for i in a:
+        #print(1)
         temp = Album_Builder_Director.cosntruct(i)
         if temp == None:
             pass
         else:
-            curr_searched_album_list.append(temp)  
+            curr_searched_album_list.append(temp)
+    #print(len(curr_searched_album_list))
     
 #search_album()
 #print(curr_searched_album_list)

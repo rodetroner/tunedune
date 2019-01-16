@@ -2,14 +2,15 @@ import pymysql
 
 import sys
 
-sys.path.append('../exceptions_d')
+sys.path.append('../../model')
 
 from pymysql.connections import Connection
 from pymysql.cursors import Cursor
 from pymysql.err import DatabaseError
 
 from pymysql.err import MySQLError
-from exceptions_d.exceptions import Ex_Handler
+from exceptions_d.exceptions import *
+
 
 class Data_Base():
     """Singleton class for storing connector to DB.
