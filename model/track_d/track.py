@@ -6,7 +6,7 @@ sys.path.append('../transactions_d')
 sys.path.append('../../mediaplayer_d')
 sys.path.append('../exceptions_d')
 
-from mediaplayer import Player_App
+from mediaplayer_d import mediaplayer
 from tracks_data import Tracks_data
 from abc import ABCMeta, abstractmethod
 from user import User
