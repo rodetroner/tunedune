@@ -6,6 +6,7 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 kivy.require('1.10.1')
 
 Builder.load_file('loginscreen.kv')
+Builder.load_file('registerscreen.kv')
 Builder.load_file('mainscreen.kv')
 Builder.load_file('searchresultsscreen.kv')
 
