@@ -84,7 +84,7 @@ class User:
                 return 0
 
     @classmethod
-    def logout(session):
+    def logout(cls, session):
         """End session for user.
         """
         Users_data().end_user_session(session)
