@@ -156,7 +156,7 @@ def search_track(name = '', authors = list(), tags = list()):
     """
     a = Tracks_data().get_tracks(track_name = name, authors = authors, tags = tags)
     #curr_searched_track_list = []
-    print(1)
+    #print(1)
     for i in a:
         curr_searched_track_list.append(Track_Builder_Director.cosntruct(i))
     
@@ -168,10 +168,12 @@ def fetch_album_tracks(album_tracks = list()):
     """
     tmp = list()
     rvalue = list()
+    album_tracks = list(album_tracks)
     for i in album_tracks:
-        tmp.append(Tracks_data().get_tracks(id_track = i[0][0]))
+        #print (i)
+        tmp.append(Tracks_data().get_tracks(id_track = list(i)[0][0]))
     for i in tmp:
-        temp = Track_Builder_Director.cosntruct(i[0])
+        temp = Track_Builder_Director.cosntruct(list(i)[0])
         if temp == None:
             pass
         else:

@@ -177,6 +177,8 @@ class Tracks_data():
     def check_track_for_buy(self, track_id, user_login):
         """Returns 1 if user does not have track and 0 if they do.
         """
+        print(track_id)
+        print(user_login)
         if self.cursor.execute("select id_track, login from users_to_tracks join users on users.id_user = users_to_tracks.id_user\
                                where id_track = %s and login = %s",
                                (track_id, user_login)
