@@ -21,3 +21,9 @@
                 root.logInAction(*args)
                 root.manager.transition.direction = 'left'
                 root.manager.current = 'MainScreen'
+        Button:
+            id: _register
+            text: 'Register'
+            on_press:
+                root.manager.transition.direction = 'right'
+                root.manager.current = 'RegisterScreen'

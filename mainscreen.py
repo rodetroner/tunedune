@@ -3,6 +3,7 @@ import sys
 sys.path.append('./model')
 sys.path.append('./model/data_base')
 sys.path.append('./model/exceptions_d')
+sys.path.append('./model/transactions_d')
 sys.path.append('./mediaplayer_d')
 sys.path.append('./model/user_d')
 import user_d.user
