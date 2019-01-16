@@ -18,6 +18,10 @@
             Button:
                 id: _search_button
                 text: 'Go'
+                on_press:
+                    root.search(*args)
+                    root.manager.transition.direction = 'left'
+                    root.manager.current = 'SearchResultsScreen'
         Button:
             id: _shop_button
             text: 'Shop'
