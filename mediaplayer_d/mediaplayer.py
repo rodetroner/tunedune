@@ -41,27 +41,27 @@ class Player_Window(FloatLayout):
             self.player_w.play_track()
             self.player_w.player.audio_set_volume(25)
             self.cover = Display_area(cover_path)
-            self.button_play = My_toggle_btn('../mediaplayer_d/playbutton.png',
+            self.button_play = My_toggle_btn('./mediaplayer_d/playbutton.png',
                                              self.player_w.player.play,
-                                             path2 = '../mediaplayer_d/stopbutton.png',
+                                             path2 = './mediaplayer_d/stopbutton.png',
                                              function2 = self.player_w.player.pause,
                                              get_length = self.player_w.player.get_length,
                                              get_time = self.player_w.player.get_time
                                              ) 
-            self.forward = My_Button('../mediaplayer_d/forwardbutton.png',
+            self.forward = My_Button('./mediaplayer_d/forwardbutton.png',
                                      self.player_w.forward_5_sec
                                      )
-            self.backwards = My_Button('../mediaplayer_d/backwardsbutton.png',
+            self.backwards = My_Button('./mediaplayer_d/backwardsbutton.png',
                                        self.player_w.backwards_5_sec
                                        )
             self.volume_slider = Volume_Slider(self.player_w.player.audio_set_volume)
-            self.button_repeat = My_Button('../mediaplayer_d/repeatbutton.png',
+            self.button_repeat = My_Button('./mediaplayer_d/repeatbutton.png',
                                            lambda: self.player_w.repeat(self.button_play))
             self.media_slider = Media_Slider(self.player_w.player.set_position,
                                              self.player_w.player.is_playing,
                                              self.player_w.player.get_time,
                                              self.player_w.player.get_length)
-            self.volume_icon = My_Button('../mediaplayer_d/volume.png', lambda: None)
+            self.volume_icon = My_Button('./mediaplayer_d/volume.png', lambda: None)
             self.cover.pos_hint = {'center_x': 0.5, 'center_y': 0.5}
             self.button_repeat.pos_hint = {'center_x': 0.1, 'center_y': 0.1}
             self.backwards.pos_hint = {'center_x': 0.2, 'center_y': 0.1}

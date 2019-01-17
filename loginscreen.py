@@ -7,6 +7,8 @@ import user_d.user
 from kivy.uix.screenmanager import Screen
 kivy.require('1.10.1')
 
+usr = None
+
 class LoginScreen(Screen):
 
     ''' Clear the login text field unless, the user typed their username '''
@@ -24,4 +26,4 @@ class LoginScreen(Screen):
     def logInAction(self, instance, *args):
         self.current_session = user_d.user.User.login(self.login_input.text,
                                                 self.password_input.text)
-        print('login_succesful')
+        user_d.user.current_user = user_d.user.User(self.login_input.text)

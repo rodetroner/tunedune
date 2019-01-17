@@ -11,16 +11,17 @@ from kivy.core.window import Window
 from kivy.uix.label import Label
 import sys
 
-sys.path.append('mediaplayer_d')
-sys.path.append('playlist_screen')
-sys.path.append('model/track_d')
-sys.path.append('model/album_d')
-sys.path.append('model/data_base')
-sys.path.append('model/actions_d')
-sys.path.append('model/exceptions_d')
-sys.path.append('model/transactions_d')
-sys.path.append('model')
-sys.path.append('model/user_d')
+sys.path.append('../mediaplayer_d')
+sys.path.append('../playlist_screen')
+sys.path.append('../model/track_d')
+sys.path.append('../model/album_d')
+sys.path.append('../model/data_base')
+sys.path.append('../model/actions_d')
+sys.path.append('../model/exceptions_d')
+sys.path.append('../model/transactions_d')
+sys.path.append('../model')
+sys.path.append('../model/user_d')
+sys.path.append('../tunedune')
 kivy.require('1.10.1')
 Builder.load_file('a_screen.kv')
 
@@ -32,8 +33,6 @@ from album import *
 from track import *
 from actions import *
 import actions
-
-ms = None
 
 class MyLabelWithBackground(Label):
     pass
@@ -60,7 +59,7 @@ class A_Screen(Screen):
         i = 0
         LB = BoxLayout(orientation = 'vertical')
         LB2 = BoxLayout(orientation = 'horizontal')
-        LB2.add_widget(My_Button1(lambda i: set_ms_curr('MainScreen'), 1, 0, text = '<'))
+        LB2.add_widget(My_Button1(lambda i: set_ms_curr(''), 1, 0, text = '<'))
         LB2.add_widget(My_Button1(lambda i: set_ms_curr("Playlist"), 1, 0, text = '>'))
         LB.add_widget(LB2)
         LB.add_widget(Label(text = 'Albums searched'))

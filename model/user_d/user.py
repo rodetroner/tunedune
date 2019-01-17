@@ -7,6 +7,7 @@ from argon2 import PasswordHasher
 from users_data import Users_data
 from exceptions import *
 
+current_user = None
 
 class User:
     """Class aacts as fasade for module responsible for interacting with data base. 
