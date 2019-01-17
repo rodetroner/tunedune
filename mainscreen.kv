@@ -21,6 +21,7 @@
             TextInput:
                 id: _search_field
                 text: 'Search...'
+                on_focus: root.clearSearch(*args)
             Button:
                 id: _search_button
                 text: 'Go'

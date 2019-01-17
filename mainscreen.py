@@ -18,6 +18,11 @@ class MainScreen(Screen):
         user_d.user.User.logout(self.login_screen.current_session)
         print(self.login_screen.current_session)
 
+    def clearSearch(self, instance, *args):
+        if self.search_field.text == 'Search...':
+            self.search_field.text = ''
+
+
     def search(self, instance, *args):
         track_d.track.search_track(name=self.search_field.text)
         print(track_d.track.curr_searched_track_list)
