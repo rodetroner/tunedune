@@ -1,5 +1,27 @@
 #Changelog for tunedune project
 
+## [0.0.26] - 2019.01.16
+- Implemented registration screen
+- Fix password confirming 
+
+## [0.0.25] - 2019.01.16
+- Added screen for users, ads and other
+
+## [0.0.24] - 2019.01.16
+- Implemented album search screen
+- Moved media player to separate screen
+
+## [0.0.22] - 2019.01.14
+- Add exception popups
+- Add exceptions
+
+## [0.0.20] - 2019.01.13
+- Moved whole sidebar to separate screen
+- Implement prototype login function
+
+## [0.0.18] - 2019.01.13
+- Fix various bugs
+
 ## [0.0.17] - 2019.01.10
 - Added 'Skip login' and 'Log out' buttons
 
