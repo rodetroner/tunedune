@@ -2,7 +2,8 @@
 #:import mainscreen mainscreen 
 
 <MainScreen>:
-    search_field: _search_field
+    search_tracks_field: _search_tracks_field
+    search_albums_field: _search_albums_field
     BoxLayout
         padding: 20
         spacing: 5 
@@ -16,30 +17,42 @@
             text: 'User'
             size_hint: 1, .05
         BoxLayout:
+            spacing: 5
             orientation: 'horizontal'
             size_hint: 1, .05
             TextInput:
-                id: _search_field
-                text: 'Search...'
-                on_focus: root.clearSearch(*args)
+                id: _search_tracks_field
+                text: 'Search tracks...'
+                size_hint: 0.7, 1 
+                on_focus: root.clearSearchTracks(*args)
             Button:
-                id: _search_button
+                id: _search_tracks_button
                 text: 'Go'
+                size_hint: 0.3, 1 
                 on_press:
-                    root.search(*args)
+                    root.searchTracks(*args)
+                    root.manager.transition.direction = 'left'
+                    root.manager.current = 'SearchResultsScreen'
+        BoxLayout:
+            spacing: 5
+            orientation: 'horizontal'
+            size_hint: 1, .05
+            TextInput:
+                id: _search_albums_field
+                text: 'Search albums...'
+                size_hint: 0.7, 1 
+                on_focus: root.clearSearchAlbums(*args)
+            Button:
+                id: _search_albums_button
+                text: 'Go'
+                size_hint: 0.3, 1 
+                on_press:
+                    root.searchAlbums(*args)
                     root.manager.transition.direction = 'left'
                     root.manager.current = 'SearchResultsScreen'
         Button:
-            id: _shop_button
-            text: 'Shop'
-            size_hint: 1, .05
-        Button:
             id: _music_button
             text: 'My Music'
-            size_hint: 1, .05
-        Button:
-            id: _settings_button
-            text: 'Settings'
             size_hint: 1, .05
         Button:
             id: _logout
