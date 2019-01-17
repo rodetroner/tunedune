@@ -19,5 +19,5 @@ class MainScreen(Screen):
         print(self.login_screen.current_session)
 
     def search(self, instance, *args):
-        track_d.track.search_track(name ='turystyczna_piosenka')
+        track_d.track.search_track(name=self.search_field.text)
         print(track_d.track.curr_searched_track_list)
