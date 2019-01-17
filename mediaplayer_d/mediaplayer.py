@@ -35,7 +35,6 @@ class Player_Window(FloatLayout):
         Starts dispatcher for progress slider movement. At the begining clears previously created window.
         """
         try:
-            print(path)
             super(Player_Window, self).__init__()
             self.clear_widgets()
             self.player_w = Player(path)
@@ -89,6 +88,7 @@ class Player_Window(FloatLayout):
             self.add_widget(self.forward)
             self.add_widget(self.volume_icon)
             self.media_slider.start_clock()
+            self.player_w.start_clock()
         except (VLCException, widget):
             if(self._attempts < 3):
                 self._attempts = self._attempts + 1

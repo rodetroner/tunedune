@@ -32,22 +32,23 @@ class MyLabelWithBackground1(Label):
     pass
 
 class My_Button1(Button, ButtonBehavior):
-    def __init__(self, function, arg, flag, **kwargs):
+    def __init__(self, function, arg, flag, sc = None, **kwargs):
         super(My_Button1, self).__init__(**kwargs)
         self.arg = arg
         self.function = function
         self.flag = flag
+        self.sc = sc
 
     def on_press(self):
         self.function(self.arg)
         if self.flag == 1:
             #ms.transition = 'right'
             ms.current = "Player"
+            self.sc.a.p.player_w.player.stop()
 
 class Pl_Screen(Screen):
     def __init__(self, set_ms_curr, a):
         super(Pl_Screen, self).__init__(name = 'Playlist')
-        print('zzzzazzsdfg')
         i = 0
         self.set_ms_curr = set_ms_curr
         self.a = a
@@ -57,9 +58,13 @@ class Pl_Screen(Screen):
         LB2.add_widget(My_Button1(lambda i: self.set_ms_curr("Player"), 1, 0, text = '>'))
         self.sv.add_widget(LB2)
         self.add_widget(self.sv)
+
+    def inform(self):
+        self.album.play_next(self.a)
         
     def reset(self, album):
-        print('plplpl')
+        self.album = album
+        self.a.p.player_w.observe(self.inform)
         self.list_of_track = album.get_tracks()
         self.clear_widgets()
         LB = BoxLayout(orientation = 'vertical')
@@ -82,7 +87,7 @@ class Pl_Screen(Screen):
             temp.add_widget(lab)
             #btn1 = My_Button1(lambda i: self.list_of_track[i].buy(User('test'), datetime.datetime.now()), i, 0, text = 'Buy: ' + str(self.list_of_track[i].get_track_price()))
             #temp.add_widget(btn1)
-            btn2 = My_Button1(lambda i:  self.list_of_track[i].play_track(self.a), i, 1, text = 'Play')
+            btn2 = My_Button1(lambda i: self.album.play_next(self.a), i, 1, sc = self, text = 'Play')
             temp.add_widget(btn2)
             i += 1
             LB.add_widget(temp)

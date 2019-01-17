@@ -1,4 +1,9 @@
 import vlc
+import kivy
+
+kivy.require('1.10.1')
+
+from kivy.clock import Clock
 
 class Player:
     """Class for handeling operations on mediaplayer.
@@ -6,12 +11,30 @@ class Player:
     path. It also defines methods to interact with it that may be passed to
     buttons.
     """
+    _observers = set()
+    
     def __init__(self, path):
         self.__instance = vlc.Instance()
         self.__media = None
         self.player = None
         self.__path = path
-    
+        
+    def observe(self, inform):
+        Player._observers.add(inform)
+        
+    def inform(self):
+        for i in Player._observers:
+            i()
+
+    def start_clock(self):
+        """Starts the dispatcher for updating slider's position.
+        """
+        Clock.schedule_interval(self.media_watcher, 0.1)
+
+    def media_watcher(self, delta_time):
+        if self.player.get_state() == vlc.State.Ended:
+            self.inform()
+        
     def play_track(self):
         """Sets media for mediaplayer based on path provided in __init__.
         """

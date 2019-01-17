@@ -111,7 +111,18 @@ class Album:
             return 1
         else:
             return 0
-        
+
+    def play_next(self, a):
+        if len(self._tracks) > 0:
+            if len(self._tracks) > self.curr_track:
+                a.p.button_play.toogle()
+                self._tracks[self.curr_track].play_track(a)
+            else:
+                self.curr_track = 0
+                a.p.button_play.toogle()
+                self._tracks[self.curr_track].play_track(a)
+            self.curr_track += 1
+            
 def search_album(name = '', owner = None, authors = list(), tags = list()):
     """updates searched albums list.
     """

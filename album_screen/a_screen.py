@@ -56,7 +56,7 @@ class My_Button1(Button, ButtonBehavior):
 class A_Screen(Screen):
     def __init__(self, set_ms_curr, album_reset = None):
         super(A_Screen, self).__init__(name = 'Albums')
-        print('asdfg')
+        #print('asdfg')
         i = 0
         LB = BoxLayout(orientation = 'vertical')
         LB2 = BoxLayout(orientation = 'horizontal')
@@ -85,7 +85,7 @@ class A_Screen(Screen):
         sv = ScrollView(size_hint=(1, None), size=(Window.width, Window.height))
         sv.add_widget(LB)
         self.add_widget(sv)
-'''
+
 class MyScreenManager(ScreenManager):
     def __init__(self):
         super(MyScreenManager, self).__init__()
@@ -123,4 +123,3 @@ t2 = t_screen.T_Screen(ms.set_ms_curr, a)
 ac = ac_screen.Ac_Screen(ms.set_ms_curr, a2)
 ms.add()
 TuneDuneApp().run()
-'''
