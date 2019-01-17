@@ -56,7 +56,6 @@ class My_Button1(Button, ButtonBehavior):
 class A_Screen(Screen):
     def __init__(self, set_ms_curr, album_reset = None):
         super(A_Screen, self).__init__(name = 'Albums')
-        #print('asdfg')
         i = 0
         LB = BoxLayout(orientation = 'vertical')
         LB2 = BoxLayout(orientation = 'horizontal')
@@ -64,9 +63,7 @@ class A_Screen(Screen):
         LB2.add_widget(My_Button1(lambda i: set_ms_curr("Playlist"), 1, 0, text = '>'))
         LB.add_widget(LB2)
         LB.add_widget(Label(text = 'Albums searched'))
-        #print(curr_searched_album_list)
         while i < len(curr_searched_album_list):
-            #print('a')
             temp = BoxLayout(orientation = 'horizontal')
             temp.size_hint = (1, 1)
             temp.height = 20
