@@ -1,0 +1,35 @@
+#:kivy 1.10.1
+#: import registerscreen registerscreen
+
+<RegisterScreen>:
+    username_input: _username_input
+    email_input: _email_input
+    password_input: _password_input
+    confirm_password_input: _confirm_password_input
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text: 'Enter username:'
+        TextInput:
+            id: _username_input
+        Label:
+            text: 'Enter email address:'
+        TextInput:
+            id: _email_input
+        Label:
+            text: 'Enter password:'
+        TextInput:
+            id: _password_input
+            password: True
+        Label:
+            text: 'Confirm password:'
+        TextInput:
+            id: _confirm_password_input
+            password: True
+        Button:
+            id: _submit
+            text: 'Register'
+            on_press:
+                root.register(*args)
+                root.manager.transition.direction = 'left'
+                root.manager.current = 'LoginScreen'

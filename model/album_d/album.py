@@ -6,7 +6,7 @@ sys.path.append('../track_d')
 sys.path.append('../exceptions_d')
 
 from albums_data import Albums_data
-from track import *
+from track_d.track import *
 from user import User
 from exceptions import *
 

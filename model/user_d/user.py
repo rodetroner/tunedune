@@ -7,6 +7,7 @@ from argon2 import PasswordHasher
 from users_data import Users_data
 from exceptions import *
 
+
 class User:
     """Class aacts as fasade for module responsible for interacting with data base. 
     """
@@ -84,7 +85,7 @@ class User:
                 return 0
 
     @classmethod
-    def logout(session):
+    def logout(cls, session):
         """End session for user.
         """
         Users_data().end_user_session(session)

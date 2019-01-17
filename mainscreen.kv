@@ -2,34 +2,62 @@
 #:import mainscreen mainscreen 
 
 <MainScreen>:
+    search_tracks_field: _search_tracks_field
+    search_albums_field: _search_albums_field
     BoxLayout
+        padding: 20
+        spacing: 5 
         orientation: 'vertical'
         Label:
             id: _app_name
             text: 'TuneDune'
+            size_hint: 1, .2
         Button:
             id: _user_button
             text: 'User'
+            size_hint: 1, .05
         BoxLayout:
+            spacing: 5
             orientation: 'horizontal'
+            size_hint: 1, .05
             TextInput:
-                id: _search_field
-                text: 'Search...'
+                id: _search_tracks_field
+                text: 'Search tracks...'
+                size_hint: 0.7, 1 
+                on_focus: root.clearSearchTracks(*args)
             Button:
-                id: _search_button
+                id: _search_tracks_button
                 text: 'Go'
-        Button:
-            id: _shop_button
-            text: 'Shop'
+                size_hint: 0.3, 1 
+                on_press:
+                    root.searchTracks(*args)
+                    root.manager.transition.direction = 'left'
+                    root.manager.current = 'SearchResultsScreen'
+        BoxLayout:
+            spacing: 5
+            orientation: 'horizontal'
+            size_hint: 1, .05
+            TextInput:
+                id: _search_albums_field
+                text: 'Search albums...'
+                size_hint: 0.7, 1 
+                on_focus: root.clearSearchAlbums(*args)
+            Button:
+                id: _search_albums_button
+                text: 'Go'
+                size_hint: 0.3, 1 
+                on_press:
+                    root.searchAlbums(*args)
+                    root.manager.transition.direction = 'left'
+                    root.manager.current = 'SearchResultsScreen'
         Button:
             id: _music_button
             text: 'My Music'
-        Button:
-            id: _settings_button
-            text: 'Settings'
+            size_hint: 1, .05
         Button:
             id: _logout
             text: 'Log out'
+            size_hint: 1, .05
             on_press:
                 root.logOut(*args)
                 root.manager.transition.direction = 'right'
