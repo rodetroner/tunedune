@@ -12,10 +12,6 @@
             id: _app_name
             text: 'TuneDune'
             size_hint: 1, .2
-        Button:
-            id: _user_button
-            text: 'User'
-            size_hint: 1, .05
         BoxLayout:
             spacing: 5
             orientation: 'horizontal'
@@ -32,7 +28,7 @@
                 on_press:
                     root.searchTracks(*args)
                     root.manager.transition.direction = 'left'
-                    root.manager.current = 'SearchResultsScreen'
+                    root.manager.current = 'Tracks'
         BoxLayout:
             spacing: 5
             orientation: 'horizontal'
@@ -49,11 +45,21 @@
                 on_press:
                     root.searchAlbums(*args)
                     root.manager.transition.direction = 'left'
-                    root.manager.current = 'SearchResultsScreen'
+                    root.manager.current = 'Albums'
         Button:
-            id: _music_button
-            text: 'My Music'
+            id: _ads_button
+            text: 'Ads'
             size_hint: 1, .05
+            on_press:
+                root.manager.transition.direction = 'left'
+                root.manager.current = 'Ads'
+        Button:
+            id: _user
+            text: 'My account'
+            size_hint: 1, .05
+            on_press:
+                root.manager.transition.direction = 'left'
+                root.manager.current = 'User'
         Button:
             id: _logout
             text: 'Log out'
