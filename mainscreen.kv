@@ -4,15 +4,20 @@
 <MainScreen>:
     search_field: _search_field
     BoxLayout
-        orientation: 'vertical'
+        padding: 20
+        spacing: 5 
+        orientation: 'vertial'
         Label:
             id: _app_name
             text: 'TuneDune'
+            size_hint: 1, .2
         Button:
             id: _user_button
             text: 'User'
+            size_hint: 1, .05
         BoxLayout:
             orientation: 'horizontal'
+            size_hint: 1, .05
             TextInput:
                 id: _search_field
                 text: 'Search...'
@@ -26,15 +31,19 @@
         Button:
             id: _shop_button
             text: 'Shop'
+            size_hint: 1, .05
         Button:
             id: _music_button
             text: 'My Music'
+            size_hint: 1, .05
         Button:
             id: _settings_button
             text: 'Settings'
+            size_hint: 1, .05
         Button:
             id: _logout
             text: 'Log out'
+            size_hint: 1, .05
             on_press:
                 root.logOut(*args)
                 root.manager.transition.direction = 'right'
