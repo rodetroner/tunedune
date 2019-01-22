@@ -59,7 +59,7 @@ class T_Screen(Screen):
             temp = BoxLayout(orientation = 'horizontal')
             temp.size_hint = (1, 1)
             temp.height = 20
-            l = curr_searched_track_list[i].get_track_name() + "by: " + curr_searched_track_list[i].get_authors()[0][0]
+            l = curr_searched_track_list[i].get_track_name() + " by: " + curr_searched_track_list[i].get_authors()[0][0]
             if i % 2 == 0:
                 lab = MyLabelWithBackground(text = l)
             else:

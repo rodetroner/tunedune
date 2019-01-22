@@ -146,8 +146,10 @@ class Track:
             return 0
         
     def play_track(self, a):
+        #a.p.player_w.player.stop()
+        #a.p.button_play.toogle()
         a.p.reset_player(self._path, self._cover_path)
-        a.p.player_w.player.play()
+        #a.p.player_w.player.play()
         
     def add_to_album(self, album):
         album.add_track(self)
